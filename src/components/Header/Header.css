@@ -1,0 +1,30 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px 0 28px;
+}
+
+.header__title-container {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.header__date-and-location {
+    margin: 0;
+}
+
+.header__user-container {
+    display: flex;
+    align-items: center;  
+};
+
+.header__add-clothes-btn {
+    background-color: transparent;
+    box-shadow: #f3f3f3;
+}
+
+.header__user-name {
+    margin: 0 12px 0 20px;
+}
