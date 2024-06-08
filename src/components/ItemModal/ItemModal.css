@@ -1,0 +1,52 @@
+.modal__content_type_image {
+    width: 498px;
+    height: 610px;
+    position: relative;
+    background: rgba(255, 255, 255, 1);
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    overflow: hidden;
+}
+    
+
+.modal__image {
+    height: 498px;
+    width: 498px;
+    object-fit: cover;
+}
+
+.modal__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.modal__close:hover {
+    opacity: 0.6;
+}
+
+.modal__caption {
+    font-family: Cabinet Grotesk;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: left;
+    margin: 20px 0 0 32px;
+}
+
+.modal__weather {
+    font-family: Cabinet Grotesk;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: left;
+    margin: 12px 0 0 32px;
+}
+
