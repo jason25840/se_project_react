@@ -9,11 +9,22 @@
     border-width: 1px;
     border-color: rgba(0, 0, 0, 0.3);
     overflow: hidden;
+    cursor: pointer;
+    box-sizing: border-box;
 }
 
 .card__title {
     position: absolute;
     top: 15px;
+    background-color: #fff;
+    width: auto;
+    height: 24px;    
+    padding: 2px 12px 2px 12px;
+    gap: 8px;
+    border-radius: 4px;
+    opacity: 0px;
+    text-align: center;
+    margin: 0%;
 }
 
 .card__image {

@@ -13,6 +13,12 @@
 
 .header__date-and-location {
     margin: 0;
+    font-family: Cabinet Grotesk;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: left;
+    color: #000;
 }
 
 .header__user-container {
@@ -22,13 +28,30 @@
 
 .header__add-clothes-btn {
     background-color: transparent;
-    box-shadow: #f3f3f3;
+    border-width: 0;
+    padding: 0;
+    margin: 0;
 }
 
 .header__add-clothes-btn:hover {
     cursor: pointer;
 }
 
+.header__add-clothes-btn-text {
+    font-family: Cabinet Grotesk;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24.8px;
+    text-align: left;
+    color: #000;
+}
+
 .header__user-name {
     margin: 0 12px 0 20px;
+    font-family: Cabinet Grotesk;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24.8px;
+    text-align: left;
+    color: #000;
 }
