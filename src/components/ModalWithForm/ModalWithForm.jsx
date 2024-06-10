@@ -7,31 +7,35 @@ function ModalWithForm({ children, activeModal, handleActiveModalClose }) {
   const modalRef = useRef();
 
   useEffect(() => {
-    function handleKeyDown(e) {
-      if (e.key === "Escape") {
-        handleActiveModalClose();
-      }
+  function handleKeyDown(e) {
+    if (e.key === "Escape") {
+      handleActiveModalClose();
     }
-    function handleClickOutside(e) {
-      if (modalRef.current && !modalRef.current.contains(e.target)) {
-        handleActiveModalClose();
-      }
-    }
+  }
 
-    if (activeModal === "add-garment") {
-      document.addEventListener("keydown", handleKeyDown);
-      document.addEventListener("click", handleClickOutside);
-    }
+  if (activeModal === "add-garment") {
+    document.addEventListener("keydown", handleKeyDown);
+  } else {
+    document.removeEventListener("keydown", handleKeyDown);
+  }
 
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("click", handleClickOutside);
-    };
+  return () => document.removeEventListener("keydown", handleKeyDown);
+
   }, [activeModal, handleActiveModalClose]);
 
+  const handleClickOutside = (e) => {
+    if (modalRef.current && !modalRef.current.contains(e.target)) {
+      handleActiveModalClose();
+    }
+  };
+
   return (
-    <div className={`modal ${activeModal === "add-garment" && "modal_opened"}`}>
-      <div className="modal__content">
+    <div
+      className={`modal ${activeModal === "add-garment" ? "modal_opened" : ""}`}
+      aria-label="close"
+      onPointerDown={handleClickOutside}
+    >
+      <div className="modal__content" ref={modalRef}>
         <h2 className="modal__title">New Garment</h2>
         <button
           onClick={handleActiveModalClose}

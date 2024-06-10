@@ -1,5 +1,4 @@
 import "./ItemModal.css";
-
 import React, { useEffect, useRef } from "react";
 import previewClose from "../../assets/whiteClose.svg";
 
@@ -12,28 +11,31 @@ function ItemModal({ activeModal, handleActiveModalClose, card }) {
         handleActiveModalClose();
       }
     }
-    function handleClickOutside(e) {
-      if (modalRef.current && !modalRef.current.contains(e.target)) {
-        handleActiveModalClose();
-      }
-    }
 
     if (activeModal === "add-garment") {
       document.addEventListener("keydown", handleKeyDown);
-      document.addEventListener("click", handleClickOutside);
+    } else {
+      document.removeEventListener("keydown", handleKeyDown);
     }
 
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("click", handleClickOutside);
-    };
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [activeModal, handleActiveModalClose]);
+
+  const handleClickOutside = (e) => {
+    if (modalRef.current && !modalRef.current.contains(e.target)) {
+      handleActiveModalClose();
+    }
+  };
 
   return (
     <div
-      className={`modal ${activeModal === "preview-image" && "modal_opened"}`}
+      className={`modal ${
+        activeModal === "preview-image" ? "modal_opened" : ""
+      }`}
+      aria-label="close"
+      onPointerDown={handleClickOutside}
     >
-      <div className="modal__content_type_image">
+      <div className="modal__content_type_image" ref={modalRef}>
         <button
           onClick={handleActiveModalClose}
           type="button"

@@ -19,11 +19,13 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
 
   const handleImageCardClick = (card) => {
+    console.log("card clicked", card);
     setActiveModal("preview-image");
     setSelectedCard(card);
   };
 
   const handleAddClothesClick = () => {
+    console.log("add clothes");
     setActiveModal("add-garment");
   };
 
