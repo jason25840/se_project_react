@@ -16,14 +16,14 @@ export const filterWeatherData = (data) => {
   result.temp = {
     F: data.main.temp,
   };
-  result.type = getWeatherType(result.temp.F);
+  result.type = getWeatherType(
+    (result.temp.F = `${Math.round(data.main.temp)}`),
+    (result.temp.C = `${Math.round(((data.main.temp - 32) * 5) / 9)}`)
+  );
   result.condition = data.weather[0].main.toLowerCase();
   result.isDay = isDay(data.sys, data);
   return result;
 };
-
-//const sunrise = new Date(data.sys.sunrise * 1000);
-//  const sunset = new Date(data.sys.sunset * 1000);
 
 const isDay = ({ sunrise, sunset }, data) => {
   const now = new Date(data.dt * 1000);
@@ -39,3 +39,4 @@ const getWeatherType = (temperature) => {
     return "cold";
   }
 };
+console.log(getWeatherType(80));

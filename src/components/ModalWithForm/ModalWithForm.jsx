@@ -3,7 +3,7 @@ import "./ModalWithForm.css";
 import React, { useRef } from "react";
 import close from "../../assets/close.svg";
 
-function ModalWithForm({ children, isOpen, handleActiveModalClose }) {
+function ModalWithForm({ children, isOpen, handleActiveModalClose, onSubmit }) {
   const modalRef = useRef();
 
   const handleClickOutside = (e) => {
@@ -27,7 +27,7 @@ function ModalWithForm({ children, isOpen, handleActiveModalClose }) {
         >
           <img src={close} alt="close" />
         </button>
-        <form className="modal__form">
+        <form className="modal__form" onSubmit={onSubmit}>
           {children}
           <button type="submit" className="modal__submit-btn">
             Add garment
