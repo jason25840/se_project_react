@@ -55,3 +55,7 @@
     text-align: left;
     color: #000;
 }
+
+.header__profile-link {
+    text-decoration: none;
+}

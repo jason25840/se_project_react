@@ -76,12 +76,12 @@ function App() {
         value={{ currentTemperatureUnit, handleToggleSwitchChange }}
       >
         <div className="page__content">
-          <Header
-            handleAddClothesClick={handleAddClothesClick}
-            weatherData={weatherData}
-          />
-
           <BrowserRouter>
+            <Header
+              handleAddClothesClick={handleAddClothesClick}
+              weatherData={weatherData}
+            />
+
             <Routes>
               <Route
                 path="/"
