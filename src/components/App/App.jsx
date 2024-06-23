@@ -13,6 +13,7 @@ import ItemModal from "../ItemModal/ItemModal";
 import Footer from "../Footer/Footer";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext"; //CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../../AddItemModal/AddItemModal";
+import { getItems } from "../../utils/api";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -66,6 +67,14 @@ function App() {
       .then((data) => {
         const weatherData = filterWeatherData(data);
         setWeatherData(weatherData);
+      })
+      .catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    getItems()
+      .then((data) => {
+        console.log(data);
       })
       .catch(console.error);
   }, []);
