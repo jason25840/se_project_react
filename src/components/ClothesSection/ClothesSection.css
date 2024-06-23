@@ -1,0 +1,25 @@
+.clothes-section__header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.clothes-section__title {
+    font-family: "Cabinet Grotesk";
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 25px;
+    text-align: left;
+}
+
+.clothes-section__button {
+    font-family: "Cabinet Grotesk";
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 25px;
+    text-align: left;
+    opacity: 0.6;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}

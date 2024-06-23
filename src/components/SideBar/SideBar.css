@@ -1,0 +1,24 @@
+.sidebar {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.profile__avatar {
+    width: 56px;
+    height: 56px;
+    border: 1px;
+    border-color: #000;
+}
+
+.profile__name {
+    font-family: Cabinet Grotesk;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 25px;
+    margin-top: 50%;
+    margin-bottom: 50%;
+    text-align: left;
+    color: #000000;
+    margin: 0;
+}

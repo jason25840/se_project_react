@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
 import Header from "../Header/Header";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import { APIkey, coordinates } from "../../utils/constants";
 import Main from "../Main/Main";
+import Profile from "../Profile/Profile";
 import ItemModal from "../ItemModal/ItemModal";
 import Footer from "../Footer/Footer";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext"; //CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
@@ -23,7 +25,6 @@ function App() {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
 
   const handleImageCardClick = (card) => {
-    console.log("card clicked", card);
     setActiveModal("preview-image");
     setSelectedCard(card);
   };
@@ -79,11 +80,28 @@ function App() {
             handleAddClothesClick={handleAddClothesClick}
             weatherData={weatherData}
           />
-          <Main
-            weatherData={weatherData}
-            handleImageCardClick={handleImageCardClick}
-          />
+
+          <BrowserRouter>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Main
+                    weatherData={weatherData}
+                    handleImageCardClick={handleImageCardClick}
+                  />
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <Profile handleImageCardClick={handleImageCardClick} />
+                }
+              />
+            </Routes>
+          </BrowserRouter>
         </div>
+
         <AddItemModal
           isOpen={activeModal === "add-garment"}
           handleActiveModalClose={handleActiveModalClose}
