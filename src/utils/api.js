@@ -6,6 +6,17 @@ function getItems() {
   });
 }
 
+function deleteItem(id) {
+  return fetch(`${baseUrl}/items/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res) => {
+    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+  });
+}
+
 function addItem(item) {
   return fetch(`${baseUrl}/items`, {
     method: "POST",
@@ -20,3 +31,4 @@ function addItem(item) {
 
 export { getItems };
 export { addItem };
+export { deleteItem };

@@ -13,7 +13,8 @@ import ItemModal from "../ItemModal/ItemModal";
 import Footer from "../Footer/Footer";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext"; //CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../../AddItemModal/AddItemModal";
-import { getItems } from "../../utils/api";
+import { getItems, deleteItem } from "../../utils/api";
+import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmationModal";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -25,6 +26,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [ClothingItems, setClothingItems] = useState([]);
+  const [ConfirmDelete, setConfirmDelete] = useState(false);
 
   const handleImageCardClick = (card) => {
     setActiveModal("preview-image");
@@ -46,6 +48,18 @@ function App() {
   const handleToggleSwitchChange = () => {
     if (currentTemperatureUnit === "C") setCurrentTemperatureUnit("F");
     if (currentTemperatureUnit === "F") setCurrentTemperatureUnit("C");
+  };
+
+  const handleDeleteCard = (card) => {
+    console.log("delete card", card);
+    deleteItem(card._id)
+      .then(() => {
+        setClothingItems((prevItems) =>
+          prevItems.filter((item) => item._id !== card._id)
+        );
+        handleActiveModalClose();
+      })
+      .catch(console.error);
   };
 
   useEffect(() => {
@@ -126,6 +140,13 @@ function App() {
           isOpen={activeModal === "preview-image"}
           card={selectedCard}
           handleActiveModalClose={handleActiveModalClose}
+          handleDeleteCard={handleDeleteCard}
+        />
+        <DeleteConfirmationModal
+          isOpen={ConfirmDelete}
+          handleActiveModalClose={() => setConfirmDelete(false)}
+          handleConfirmDelete={handleDeleteCard}
+          card={selectedCard}
         />
         <Footer />
       </CurrentTemperatureUnitContext.Provider>
