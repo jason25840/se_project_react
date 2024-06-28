@@ -1,12 +1,13 @@
 import "./Main.css";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
-import { defaultClothingItems } from "../../utils/constants";
+//import { defaultClothingItems } from "../../utils/constants";
+//import { items } from "../../db.json";
 import { useContext } from "react";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
 //import { BrowserRouter } from "react-router-dom";
 
-function Main({ weatherData, handleImageCardClick }) {
+function Main({ weatherData, handleImageCardClick, ClothingItems }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
   return (
@@ -20,19 +21,17 @@ function Main({ weatherData, handleImageCardClick }) {
           {currentTemperatureUnit}. / You may want to wear:
         </p>
         <ul className="cards__list">
-          {defaultClothingItems
-            .filter((item) => {
-              return item.weather === weatherData.type;
-            })
-            .map((item) => {
-              return (
-                <ItemCard
-                  key={item._id}
-                  item={item}
-                  onImageCardClick={handleImageCardClick}
-                />
-              );
-            })}
+          {ClothingItems.filter((item) => {
+            return item.weather === weatherData.type;
+          }).map((item) => {
+            return (
+              <ItemCard
+                key={item._id}
+                item={item}
+                onImageCardClick={handleImageCardClick}
+              />
+            );
+          })}
         </ul>
       </section>
     </main>

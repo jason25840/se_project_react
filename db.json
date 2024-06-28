@@ -101,6 +101,24 @@
       "name": "T-Shirt",
       "weather": "hot",
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09"
+    },
+    {
+      "name": "Jason Knight",
+      "imageUrl": "https://media.istockphoto.com/id/163208487/photo/male-coat-isolated-on-the-white.jpg?s=612x612&w=is&k=20&c=THanuGpm3RzOpj_pzZ0rlpKzz29TDv0V68Hm1hHuTLA=",
+      "weatherType": "cold",
+      "_id": 17
+    },
+    {
+      "name": "Jason Knight",
+      "imageUrl": "https://media.istockphoto.com/id/163208487/photo/male-coat-isolated-on-the-white.jpg?s=612x612&w=is&k=20&c=THanuGpm3RzOpj_pzZ0rlpKzz29TDv0V68Hm1hHuTLA=",
+      "weatherType": "cold",
+      "_id": 18
+    },
+    {
+      "name": "Jason Knight",
+      "imageUrl": "https://media.istockphoto.com/id/163208487/photo/male-coat-isolated-on-the-white.jpg?s=612x612&w=is&k=20&c=THanuGpm3RzOpj_pzZ0rlpKzz29TDv0V68Hm1hHuTLA=",
+      "weatherType": "cold",
+      "_id": 19
     }
   ]
 }

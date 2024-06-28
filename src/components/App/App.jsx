@@ -24,6 +24,7 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+  const [ClothingItems, setClothingItems] = useState([]);
 
   const handleImageCardClick = (card) => {
     setActiveModal("preview-image");
@@ -74,6 +75,7 @@ function App() {
   useEffect(() => {
     getItems()
       .then((data) => {
+        setClothingItems(data);
         console.log(data);
       })
       .catch(console.error);
@@ -98,13 +100,17 @@ function App() {
                   <Main
                     weatherData={weatherData}
                     handleImageCardClick={handleImageCardClick}
+                    ClothingItems={ClothingItems}
                   />
                 }
               />
               <Route
                 path="/profile"
                 element={
-                  <Profile handleImageCardClick={handleImageCardClick} />
+                  <Profile
+                    handleImageCardClick={handleImageCardClick}
+                    ClothingItems={ClothingItems}
+                  />
                 }
               />
             </Routes>

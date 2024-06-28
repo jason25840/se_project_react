@@ -1,14 +1,27 @@
 import React, { useState } from "react";
 import ModalWithForm from "../components/ModalWithForm/ModalWithForm";
+import { addItem } from "../utils/api";
 
 const AddItemModal = ({ onAddItem, handleActiveModalClose, isOpen }) => {
   const [name, setName] = useState("");
-  const [imgUrl, setImgUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [weatherType, setWeatherType] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({ name, imgUrl, weatherType });
+    const newItem = {
+      name: name,
+      imageUrl: imageUrl,
+      weatherType: weatherType,
+    };
+    console.log("submit", newItem);
+    addItem(newItem)
+      .then((item) => {
+        console.log("item", item);
+        onAddItem(item);
+        handleActiveModalClose();
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -37,8 +50,8 @@ const AddItemModal = ({ onAddItem, handleActiveModalClose, isOpen }) => {
           className="modal__input"
           id="imgUrl"
           placeholder="Image URL"
-          value={imgUrl}
-          onChange={(e) => setImgUrl(e.target.value)}
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
         />
       </label>
       <fieldset className="modal__radio-buttons">
