@@ -5,19 +5,17 @@ import { addItem } from "../utils/api";
 const AddItemModal = ({ onAddItem, handleActiveModalClose, isOpen }) => {
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [weatherType, setWeatherType] = useState("");
+  const [weather, setWeather] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newItem = {
       name: name,
       imageUrl: imageUrl,
-      weatherType: weatherType,
+      weather: weather,
     };
-    console.log("submit", newItem);
     addItem(newItem)
       .then((item) => {
-        console.log("item", item);
         onAddItem(item);
         handleActiveModalClose();
       })
@@ -66,8 +64,8 @@ const AddItemModal = ({ onAddItem, handleActiveModalClose, isOpen }) => {
             name="weather"
             value="hot"
             className="modal__radio"
-            checked={weatherType === "hot"}
-            onChange={(e) => setWeatherType(e.target.value)}
+            checked={weather === "hot"}
+            onChange={(e) => setWeather(e.target.value)}
           />
           Hot
         </label>
@@ -78,8 +76,8 @@ const AddItemModal = ({ onAddItem, handleActiveModalClose, isOpen }) => {
             name="weather"
             value="warm"
             className="modal__radio"
-            checked={weatherType === "warm"}
-            onChange={(e) => setWeatherType(e.target.value)}
+            checked={weather === "warm"}
+            onChange={(e) => setWeather(e.target.value)}
           />
           Warm
         </label>
@@ -90,8 +88,8 @@ const AddItemModal = ({ onAddItem, handleActiveModalClose, isOpen }) => {
             name="weather"
             value="cold"
             className="modal__radio"
-            checked={weatherType === "cold"}
-            onChange={(e) => setWeatherType(e.target.value)}
+            checked={weather === "cold"}
+            onChange={(e) => setWeather(e.target.value)}
           />
           Cold
         </label>

@@ -50,7 +50,6 @@ function App() {
   };
 
   const handleDeleteCard = (card) => {
-    console.log("delete card", card);
     deleteItem(card._id)
       .then(() => {
         setClothingItems((prevItems) =>
@@ -126,6 +125,7 @@ function App() {
                 path="/profile"
                 element={
                   <Profile
+                    handleAddClothesClick={handleAddClothesClick}
                     handleImageCardClick={handleImageCardClick}
                     ClothingItems={ClothingItems}
                   />

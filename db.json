@@ -85,28 +85,22 @@
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sunglasses.png?etag=a1bced9e331d36cb278c45df51150432"
     },
     {
-      "_id": 15,
-      "name": "Sweatshirt",
-      "weather": "warm",
-      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sweatshirt.png?etag=008a9674757bea2e0bdb31242e364be0"
-    },
-    {
-      "_id": 16,
-      "name": "T-Shirt",
+      "name": "Jason Knight",
+      "imageUrl": "https://media.istockphoto.com/id/1584595044/photo/mens-tank-top.jpg?s=612x612&w=0&k=20&c=UsvSwcSdWVRSW0XPDKPlxMrcW5uyl6ijS9v0nyZztYI=",
       "weather": "hot",
-      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09"
+      "_id": 15
     },
     {
       "name": "Jason Knight",
       "imageUrl": "https://media.istockphoto.com/id/163208487/photo/male-coat-isolated-on-the-white.jpg?s=612x612&w=is&k=20&c=THanuGpm3RzOpj_pzZ0rlpKzz29TDv0V68Hm1hHuTLA=",
-      "weatherType": "cold",
-      "_id": 17
+      "weather": "cold",
+      "_id": 16
     },
     {
       "name": "Jason Knight",
-      "imageUrl": "https://media.istockphoto.com/id/1584595044/photo/mens-tank-top.jpg?s=612x612&w=0&k=20&c=UsvSwcSdWVRSW0XPDKPlxMrcW5uyl6ijS9v0nyZztYI=",
-      "weatherType": "hot",
-      "_id": 18
+      "imageUrl": "https://www.istockphoto.com/photo/traveler-in-heavy-rain-gm1166363768-321274812?utm_campaign=srp_photos_top&utm_content=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fclothes-for-weather&utm_medium=affiliate&utm_source=unsplash&utm_term=clothes+for+weather%3A%3A%3A",
+      "weather": "cold",
+      "_id": 17
     }
   ]
 }

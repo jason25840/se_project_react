@@ -39,4 +39,4 @@ const getWeatherType = (temperature) => {
     return "cold";
   }
 };
-console.log(getWeatherType(80));
+

@@ -26,7 +26,7 @@
     align-items: center;  
 };
 
-.header__add-clothes-btn {
+.header .header__add-clothes-btn {
     background-color: transparent;
     border: none;
     padding: 0;
@@ -37,13 +37,13 @@
     cursor: pointer;
 }
 
-.header__add-clothes-btn-text {
-    font-family: Cabinet Grotesk;
+.header__add-clothes-btn-text { 
+    font-family: Cabinet Grotesk; 
     font-size: 20px;
     font-weight: 700;
     line-height: 24.8px;
     text-align: left;
-    color: #000;  
+    color: #000;
 }
 
 .header__user-name {

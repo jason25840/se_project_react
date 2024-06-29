@@ -43,7 +43,8 @@
     gap: 20px;
 }
 
-.delete-card__button {
+.confirm-delete-card__button {
+    color: red;
     font-family: Cabinet Grotesk;
     font-size: 20px;
     font-weight: 700;

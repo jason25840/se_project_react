@@ -39,16 +39,16 @@ function DeleteConfirmationModal({
           </div>
           <div className="buttons">
             <button
+              className="confirm-delete-card__button"
+              onClick={() => handleDeleteCard(card)}
+            >
+              Yes, delete the item
+            </button>
+            <button
               className="cancel-delete__button"
               onClick={handleActiveModalClose}
             >
               Cancel
-            </button>
-            <button
-              className="delete-card__button"
-              onClick={() => handleDeleteCard(card)}
-            >
-              Yes, delete the item
             </button>
           </div>
         </div>
