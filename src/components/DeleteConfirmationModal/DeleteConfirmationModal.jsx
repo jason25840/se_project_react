@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
 import "./DeleteConfirmationModal.css";
-import closeIcon from "../../assets/whiteClose.svg";
+import closeIcon from "../../assets/close.svg";
 
 function DeleteConfirmationModal({
   isOpen,
   handleActiveModalClose,
-  handleConfirmDelete,
+  handleDeleteCard,
   card,
 }) {
   const modalRef = useRef();
@@ -22,7 +22,7 @@ function DeleteConfirmationModal({
       aria-label="close"
       onPointerDown={handleClickOutside}
     >
-      <div className="modal__content" ref={modalRef}>
+      <div className="delete-modal__content" ref={modalRef}>
         <button
           onClick={handleActiveModalClose}
           type="button"
@@ -31,9 +31,26 @@ function DeleteConfirmationModal({
           <img src={closeIcon} alt="close" />
         </button>
         <div className="modal__body">
-          <h2>Are you sure you want to delete this item?</h2>
-          <button onClick={() => handleConfirmDelete(card)}>Yes</button>
-          <button onClick={handleActiveModalClose}>No</button>
+          <div className="delete-card__text-wrapper">
+            <p className="delete-card__text">
+              Are you sure you want to delete this item?
+            </p>
+            <p className="delete-card__text">This action is irreversible.</p>
+          </div>
+          <div className="buttons">
+            <button
+              className="cancel-delete__button"
+              onClick={handleActiveModalClose}
+            >
+              Cancel
+            </button>
+            <button
+              className="delete-card__button"
+              onClick={() => handleDeleteCard(card)}
+            >
+              Yes, delete the item
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -26,7 +26,6 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [ClothingItems, setClothingItems] = useState([]);
-  const [ConfirmDelete, setConfirmDelete] = useState(false);
 
   const handleImageCardClick = (card) => {
     setActiveModal("preview-image");
@@ -60,6 +59,11 @@ function App() {
         handleActiveModalClose();
       })
       .catch(console.error);
+  };
+
+  const openDeleteConfirmationModal = (card) => {
+    setActiveModal("delete-confirmation");
+    setSelectedCard(card);
   };
 
   useEffect(() => {
@@ -141,13 +145,15 @@ function App() {
           card={selectedCard}
           handleActiveModalClose={handleActiveModalClose}
           handleDeleteCard={handleDeleteCard}
+          openDeleteConfirmationModal={openDeleteConfirmationModal}
         />
         <DeleteConfirmationModal
-          isOpen={ConfirmDelete}
-          handleActiveModalClose={() => setConfirmDelete(false)}
-          handleConfirmDelete={handleDeleteCard}
+          isOpen={activeModal === "delete-confirmation"}
+          handleActiveModalClose={handleActiveModalClose}
+          handleDeleteCard={handleDeleteCard}
           card={selectedCard}
         />
+
         <Footer />
       </CurrentTemperatureUnitContext.Provider>
     </div>

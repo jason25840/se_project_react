@@ -2,7 +2,12 @@ import "./ItemModal.css";
 import React, { useRef } from "react";
 import previewClose from "../../assets/whiteClose.svg";
 
-function ItemModal({ isOpen, handleActiveModalClose, card, handleDeleteCard }) {
+function ItemModal({
+  isOpen,
+  handleActiveModalClose,
+  card,
+  openDeleteConfirmationModal,
+}) {
   const modalRef = useRef();
 
   const handleClickOutside = (e) => {
@@ -31,7 +36,7 @@ function ItemModal({ isOpen, handleActiveModalClose, card, handleDeleteCard }) {
           <p className="modal__weather">Weather: {card.weather}</p>
           <button
             className="delete-card__button"
-            onClick={() => handleDeleteCard(card)}
+            onClick={() => openDeleteConfirmationModal(card)}
           >
             Delete
           </button>

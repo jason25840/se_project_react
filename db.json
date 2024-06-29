@@ -13,12 +13,6 @@
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Boot.png?etag=0953a2ea59f1c6ebc832fabacdc9c70e"
     },
     {
-      "_id": 2,
-      "name": "Cap",
-      "weather": "hot",
-      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Cap.png?etag=f3dad389b22909cafa73cff9f9a3d591"
-    },
-    {
       "_id": 3,
       "name": "Coat",
       "weather": "cold",
@@ -107,6 +101,12 @@
       "imageUrl": "https://media.istockphoto.com/id/163208487/photo/male-coat-isolated-on-the-white.jpg?s=612x612&w=is&k=20&c=THanuGpm3RzOpj_pzZ0rlpKzz29TDv0V68Hm1hHuTLA=",
       "weatherType": "cold",
       "_id": 17
+    },
+    {
+      "name": "Jason Knight",
+      "imageUrl": "https://media.istockphoto.com/id/1584595044/photo/mens-tank-top.jpg?s=612x612&w=0&k=20&c=UsvSwcSdWVRSW0XPDKPlxMrcW5uyl6ijS9v0nyZztYI=",
+      "weatherType": "hot",
+      "_id": 18
     }
   ]
 }
