@@ -33,8 +33,13 @@ function App() {
   };
 
   const onAddItem = (values) => {
-    console.log(values);
+    setClothingItems((prevItems) => [...prevItems, values]);
+    handleActiveModalClose();
   };
+
+  //const onAddItem = (values) => {
+  //  console.log(values);
+  //};
 
   const handleAddClothesClick = () => {
     setActiveModal("add-garment");

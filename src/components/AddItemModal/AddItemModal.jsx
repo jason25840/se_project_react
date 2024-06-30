@@ -17,6 +17,9 @@ const AddItemModal = ({ onAddItem, handleActiveModalClose, isOpen }) => {
     addItem(newItem)
       .then((item) => {
         onAddItem(item);
+        setName("");
+        setImageUrl("");
+        setWeather("");
         handleActiveModalClose();
       })
       .catch((err) => console.log(err));
