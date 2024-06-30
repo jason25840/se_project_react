@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ModalWithForm from "../components/ModalWithForm/ModalWithForm";
-import { addItem } from "../utils/api";
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import { addItem } from "../../utils/api";
 
 const AddItemModal = ({ onAddItem, handleActiveModalClose, isOpen }) => {
   const [name, setName] = useState("");
