@@ -24,9 +24,9 @@
 .header__user-container {
     display: flex;
     align-items: center;  
-};
+}
 
-.header .header__add-clothes-btn {
+.header__add-clothes-btn {
     background-color: transparent;
     border: none;
     padding: 0;
