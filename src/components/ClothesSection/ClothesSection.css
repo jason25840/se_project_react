@@ -23,3 +23,9 @@
     border: none;
     cursor: pointer;
 }
+
+@media screen and (max-width: 680px) {
+    .clothes__section {
+        align-items: center;
+    }
+}
