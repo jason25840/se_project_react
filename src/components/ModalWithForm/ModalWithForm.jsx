@@ -3,7 +3,14 @@ import "./ModalWithForm.css";
 import React, { useRef } from "react";
 import close from "../../assets/close.svg";
 
-function ModalWithForm({ children, isOpen, handleActiveModalClose, onSubmit }) {
+function ModalWithForm({
+  children,
+  isOpen,
+  handleActiveModalClose,
+  onSubmit,
+  title,
+  buttonText,
+}) {
   const modalRef = useRef();
 
   const handleClickOutside = (e) => {
@@ -19,7 +26,7 @@ function ModalWithForm({ children, isOpen, handleActiveModalClose, onSubmit }) {
       onPointerDown={handleClickOutside}
     >
       <div className="modal__content" ref={modalRef}>
-        <h2 className="modal__title">New Garment</h2>
+        <h2 className="modal__title">{title}</h2>
         <button
           onClick={handleActiveModalClose}
           type="button"
@@ -30,7 +37,7 @@ function ModalWithForm({ children, isOpen, handleActiveModalClose, onSubmit }) {
         <form className="modal__form" onSubmit={onSubmit}>
           {children}
           <button type="submit" className="modal__submit-btn">
-            Add garment
+            {buttonText}
           </button>
         </form>
       </div>

@@ -27,8 +27,8 @@ const AddItemModal = ({ onAddItem, handleActiveModalClose, isOpen }) => {
 
   return (
     <ModalWithForm
-      buttonText="Add Garment"
-      Title="New Garment"
+      buttonText="Add garment"
+      title="New Garment"
       isOpen={isOpen}
       handleActiveModalClose={handleActiveModalClose}
       onSubmit={handleSubmit}

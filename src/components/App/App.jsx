@@ -25,22 +25,17 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const [ClothingItems, setClothingItems] = useState([]);
+  const [clothingItems, setClothingItems] = useState([]);
 
   const handleImageCardClick = (card) => {
     setActiveModal("preview-image");
     setSelectedCard(card);
   };
 
-  const onAddItem = (values) => {
-    setClothingItems((prevItems) => [...prevItems, values]);
+  const onAddItem = (newItem) => {
+    setClothingItems((prevItems) => [newItem, ...prevItems]);
     handleActiveModalClose();
   };
-
-  //const onAddItem = (values) => {
-  //  console.log(values);
-  //};
-
   const handleAddClothesClick = () => {
     setActiveModal("add-garment");
   };
@@ -122,7 +117,7 @@ function App() {
                   <Main
                     weatherData={weatherData}
                     handleImageCardClick={handleImageCardClick}
-                    ClothingItems={ClothingItems}
+                    clothingItems={clothingItems}
                   />
                 }
               />
@@ -132,7 +127,7 @@ function App() {
                   <Profile
                     handleAddClothesClick={handleAddClothesClick}
                     handleImageCardClick={handleImageCardClick}
-                    ClothingItems={ClothingItems}
+                    clothingItems={clothingItems}
                   />
                 }
               />

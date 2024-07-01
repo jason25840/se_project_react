@@ -85,10 +85,16 @@
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sunglasses.png?etag=a1bced9e331d36cb278c45df51150432"
     },
     {
-      "name": "Jacket",
+      "name": "Puffy Jacket",
       "imageUrl": "https://media.istockphoto.com/id/163208487/photo/male-coat-isolated-on-the-white.jpg?s=612x612&w=is&k=20&c=THanuGpm3RzOpj_pzZ0rlpKzz29TDv0V68Hm1hHuTLA=",
       "weather": "cold",
-      "_id": 15
+      "_id": 18
+    },
+    {
+      "name": "Tank Top",
+      "imageUrl": "https://media.istockphoto.com/id/1584595044/photo/mens-tank-top.jpg?s=612x612&w=0&k=20&c=UsvSwcSdWVRSW0XPDKPlxMrcW5uyl6ijS9v0nyZztYI=",
+      "weather": "hot",
+      "_id": 19
     }
   ]
 }

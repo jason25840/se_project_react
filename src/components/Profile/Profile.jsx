@@ -5,7 +5,7 @@ import "./Profile.css";
 function Profile({
   handleAddClothesClick,
   handleImageCardClick,
-  ClothingItems,
+  clothingItems,
 }) {
   return (
     <div className="profile">
@@ -14,7 +14,7 @@ function Profile({
       </section>
       <section className="profile__clothing-items">
         <ClothesSection
-          ClothingItems={ClothingItems}
+          clothingItems={clothingItems}
           handleImageCardClick={handleImageCardClick}
           handleAddClothesClick={handleAddClothesClick}
         />
