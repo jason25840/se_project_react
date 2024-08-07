@@ -1,6 +1,16 @@
 import "./ItemCard.css";
 
-function ItemCard({ item, onImageCardClick }) {
+function ItemCard({ item, onImageCardClick, onCardLike }) {
+  const { currentUser } = useContext(CurrentUserContext);
+
+  if (!item) {
+    return null;
+  }
+  const isLiked =
+    Array.isArray(item.likes) &&
+    currentUser &&
+    item.likes.some((user) => user._id === currentUser._id);
+
   const handleCardClick = () => {
     onImageCardClick(item);
   };

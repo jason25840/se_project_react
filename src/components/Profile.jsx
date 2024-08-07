@@ -1,8 +1,11 @@
-import SideBar from "../SideBar/SideBar";
+import SideBar from "./SideBar";
 import ClothesSection from "../ClothesSection/ClothesSection";
+import EditProfileModal from "./EditProfileModal";
 import "./Profile.css";
 
 function Profile({
+  userName,
+  userAvatar,
   handleAddClothesClick,
   handleImageCardClick,
   clothingItems,
