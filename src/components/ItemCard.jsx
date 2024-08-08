@@ -1,4 +1,8 @@
 import "../blocks/ItemCard.css";
+import CurrentUserContext from "../contexts/CurrentUserContext";
+import heartHollow from "../assets/heartHollow.png";
+import heartSolid from "../assets/heartSolid.png";
+import { useContext } from "react";
 
 function ItemCard({ item, onImageCardClick, onCardLike }) {
   const { currentUser } = useContext(CurrentUserContext);
