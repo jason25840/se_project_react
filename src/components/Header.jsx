@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./Header.css";
-import logo from "../../assets/logo.svg";
-import PlaceholderAvatar from "../PlaceHolderAvatar";
+import "../blocks/header.css";
+import logo from "../assets/logo.svg";
+import PlaceholderAvatar from "./PlaceHolderAvatar";
 import ToggleSwitch from "./ToggleSwitch";
 import { Link } from "react-router-dom";
 function Header({
@@ -17,8 +17,6 @@ function Header({
     month: "long",
     day: "numeric",
   });
-
-  //const [avatar, setAvatar] = useState("");
 
   return (
     <div className="header">
@@ -43,22 +41,33 @@ function Header({
                 + Add Clothes
               </span>
             </button>
-            <Link to="/profile" className="header__user-name">
-              onClick={handleOpenRegisterModal}
+            <Link
+              to="/profile"
+              className="header__profile-link"
+              onClick={handleProfileClick}
+            >
+              <p className="header__username">{userName}</p>
+              {avatar ? (
+                <img src={userAvatar} alt="avatar" className="header__avatar" />
+              ) : (
+                <PlaceholderAvatar name={userName} />
+              )}
             </Link>
-            <img
-              src={avatar}
-              alt="avatar"
-              className="header__avatar"
-              onClick={() => setIsAuthenticated(false)}
-            />
           </>
         ) : (
           <>
-            <Link to="/signup" className="header__signup-btn">
+            <Link
+              to="/signup"
+              className="header__signup-btn"
+              onClick={handleOpenRegisterModal}
+            >
               Signup
             </Link>
-            <Link to="/login" className="header__login-btn">
+            <Link
+              to="/login"
+              className="header__login-btn"
+              onClick={handleOpenLoginModal}
+            >
               Login
             </Link>
           </>

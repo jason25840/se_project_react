@@ -1,4 +1,4 @@
-import "./ItemCard.css";
+import "../blocks/ItemCard.css";
 
 function ItemCard({ item, onImageCardClick, onCardLike }) {
   const { currentUser } = useContext(CurrentUserContext);
@@ -10,6 +10,9 @@ function ItemCard({ item, onImageCardClick, onCardLike }) {
     Array.isArray(item.likes) &&
     currentUser &&
     item.likes.some((user) => user._id === currentUser._id);
+  const likeButtonClassName = `card__like-button ${
+    isLiked ? "card__like-button_active" : ""
+  }`;
 
   const handleCardClick = () => {
     onImageCardClick(item);
@@ -24,6 +27,18 @@ function ItemCard({ item, onImageCardClick, onCardLike }) {
         src={item.imageUrl}
         alt={item.name}
       />
+
+      <button
+        onClick={() => onCardLike(item)}
+        className={likeButtonClassName}
+        type="button"
+      >
+        <img
+          className="card__like-icon"
+          src={isLiked ? heartSolid : heartHollow}
+          alt="like"
+        />
+      </button>
     </li>
   );
 }

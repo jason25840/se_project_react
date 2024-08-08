@@ -1,7 +1,7 @@
 import SideBar from "./SideBar";
-import ClothesSection from "../ClothesSection/ClothesSection";
+import ClothesSection from "./ClothesSection";
 import EditProfileModal from "./EditProfileModal";
-import "./Profile.css";
+import "../blocks/Profile.css";
 
 function Profile({
   userName,
@@ -9,17 +9,30 @@ function Profile({
   handleAddClothesClick,
   handleImageCardClick,
   clothingItems,
+  onCardLike,
+  handleEditProfile,
 }) {
   return (
     <div className="profile">
       <section className="profile__sidebar">
-        <SideBar />
+        <SideBar
+          userName={userName}
+          userAvatar={userAvatar}
+          handleEditProfile={handleEditProfile}
+          onLogout={onLogout}
+        />
       </section>
       <section className="profile__clothing-items">
         <ClothesSection
           clothingItems={clothingItems}
           handleImageCardClick={handleImageCardClick}
           handleAddClothesClick={handleAddClothesClick}
+          onCardLike={onCardLike}
+        />
+        <EditProfileModal
+          isOpen={false}
+          handleEditProfile={handleEditProfile}
+          handleActiveModalClose={handleActiveModalClose}
         />
       </section>
     </div>

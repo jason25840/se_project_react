@@ -33,7 +33,7 @@
     gap: 20px;
 }
 
-/* .header__signup-btn {
+.header__signup-btn {
     margin: 0;
     font-family: Cabinet Grotesk;
     font-size: 20px;
@@ -60,7 +60,7 @@
 
 .header__login-btn:hover {
     cursor: pointer;
-} */
+} 
 
 .header__add-clothes-btn {
     background-color: transparent;

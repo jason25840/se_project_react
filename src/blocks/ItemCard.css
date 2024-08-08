@@ -32,3 +32,19 @@
     height: 100%;
     object-fit: cover;
 }
+
+.card__like-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    margin: 5px auto 4px 10px;
+  }
+  
+  .card__like-icon {
+    width: 18px;
+    height: 15px;
+    justify-content: center;
+    align-items: center;
+    object-fit: contain;
+  }

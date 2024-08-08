@@ -1,6 +1,6 @@
-import "./ItemModal.css";
+import "../blocks/ItemModal.css";
 import React, { useRef } from "react";
-import previewClose from "../../assets/whiteClose.svg";
+import previewClose from "../assets/whiteClose.svg";
 
 function ItemModal({
   isOpen,

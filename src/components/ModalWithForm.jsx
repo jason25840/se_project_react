@@ -1,7 +1,7 @@
-import "./ModalWithForm.css";
+import "../blocks/ModalWithForm.css";
 
 import React, { useRef } from "react";
-import close from "../../assets/close.svg";
+import close from "../assets/close.svg";
 
 function ModalWithForm({
   children,

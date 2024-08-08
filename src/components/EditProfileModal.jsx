@@ -1,7 +1,7 @@
 import "../blocks/ModalWithForm.css";
 import { useState, useContext, useEffect } from "react";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import ModalWithForm from "./ModalWithForm";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
 const EditProfileModal = ({
   isOpen,
@@ -11,8 +11,8 @@ const EditProfileModal = ({
   const { currentUser } = useContext(CurrentUserContext);
 
   const [profileData, setProfileData] = useState({
-    name: currentUser.name || "",
-    avatar: currentUser.avatar || "",
+    name: "",
+    avatar: "",
   });
 
   useEffect(() => {

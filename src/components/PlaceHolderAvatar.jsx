@@ -1,5 +1,5 @@
 import React from "react";
-import "..header/header.css";
+import "../blocks/header.css";
 
 const PlaceholderAvatar = ({ name }) => {
   const initial = name ? name.charAt(0).toUpperCae() : "?";
