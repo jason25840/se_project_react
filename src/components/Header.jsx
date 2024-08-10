@@ -1,24 +1,21 @@
-import React, { useState } from "react";
-import "./Header.css";
-import logo from "../../assets/logo.svg";
-import PlaceholderAvatar from "../PlaceHolderAvatar";
+import React, { useContext } from "react";
+import "../blocks/Header.css";
+import logo from "../assets/logo.svg";
 import ToggleSwitch from "./ToggleSwitch";
 import { Link } from "react-router-dom";
-function Header({
-  handleAddClothesClick,
-  weatherData,
-  userAvatar = "",
-  userName = "GUEST",
-  handleOpenRegisterModal,
-  handleOpenLoginModal,
-  isAuthorized,
-}) {
+import CurrentUserContext from "../contexts/CurrentUserContext";
+function Header({ handleAddClothesClick, weatherData }) {
+  const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
+
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
 
-  //const [avatar, setAvatar] = useState("");
+  const getPlaceholderAvatar = (name) => {
+    const initial = name.charset(0).toUpperCase();
+    return <div className="header__placeholder-name">{initial}</div>;
+  };
 
   return (
     <div className="header">
@@ -32,7 +29,7 @@ function Header({
       </div>
       <div className="header__user-container">
         <ToggleSwitch />
-        {isAuthorized ? (
+        {isLoggedIn ? (
           <>
             <button
               onClick={handleAddClothesClick}
@@ -43,15 +40,18 @@ function Header({
                 + Add Clothes
               </span>
             </button>
-            <Link to="/profile" className="header__user-name">
-              onClick={handleOpenRegisterModal}
+            <Link to="/profile" className="header__profile-section">
+              <p className="header__user-name">{currentUser.name}</p>
+              {currentUser.avatar ? (
+                <img
+                  src={currentUser.avatar}
+                  alt="avatar"
+                  className="header__avatar"
+                />
+              ) : (
+                getPlaceholderAvatar(currentUser.name)
+              )}
             </Link>
-            <img
-              src={avatar}
-              alt="avatar"
-              className="header__avatar"
-              onClick={() => setIsAuthenticated(false)}
-            />
           </>
         ) : (
           <>

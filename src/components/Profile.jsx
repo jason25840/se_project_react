@@ -1,7 +1,7 @@
 import SideBar from "./SideBar";
-import ClothesSection from "../ClothesSection/ClothesSection";
+import ClothesSection from "./ClothesSection";
 import EditProfileModal from "./EditProfileModal";
-import "./Profile.css";
+import "../blocks/Profile.css";
 
 function Profile({
   userName,

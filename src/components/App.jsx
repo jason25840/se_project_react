@@ -1,22 +1,26 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import "./App.css";
-import Header from "../Header/Header";
-import { getWeather, filterWeatherData } from "../../utils/weatherApi";
-import { APIkey, coordinates } from "../../utils/constants";
-import Main from "../Main/Main";
-import Profile from "../Profile/Profile";
-import ItemModal from "../ItemModal/ItemModal";
-import RegisterModal from "../RegisterModal/RegisterModal";
-import LoginModal from "../LoginModal/LoginModal";
-import Footer from "../Footer/Footer";
-import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
-import AddItemModal from "../AddItemModal/AddItemModal";
-import { getItems, deleteItem } from "../../utils/api";
-import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmationModal";
+import "../blocks/App.css";
+import Header from "./Header";
+import { getWeather, filterWeatherData } from "../utils/weatherApi";
+import { APIkey, coordinates } from "../utils/constants";
+import Main from "./Main";
+import Profile from "./Profile";
+import ItemModal from "./ItemModal";
+import RegisterModal from "./RegisterModal";
+import LoginModal from "./LoginModal";
+import Footer from "./Footer";
+import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
+import {
+  CurrentUserProvider,
+  CurrentUserContext,
+} from "../contexts/CurrentUserContext";
+import AddItemModal from "./AddItemModal";
+import { getItems, deleteItem, addItem } from "../utils/api";
+import auth from "../utils/auth";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -28,8 +32,31 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //const [currentUser, setCurrentUser] = useState(null);
+  //const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const { currentUser, setCurrentUser, isLoggedIn, setIsLoggedIn } =
+    useContext(CurrentUserContext);
+
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      auth
+        .getUserInfo(token)
+        .then((user) => {
+          if (user && user._id) {
+            setCurrentUser(user);
+            setIsLoggedIn(true);
+          } else {
+            console.error("Invalid user data received", user);
+          }
+        })
+        .catch((err) => {
+          console.error("Failed to fetch user info", err);
+          localStorage.removeItem("jwt");
+        });
+    }
+  }, [setCurrentUser]);
 
   const handleOpenRegisterModal = () => {
     setActiveModal("register");
@@ -39,14 +66,61 @@ function App() {
     setActiveModal("login");
   };
 
+  const handleRegistration = ({ email, name, password, avatar }) => {
+    auth
+      .register(email, password, name, avatar)
+      .then(() => {
+        return auth.authorize(email, password);
+      })
+      .then((data) => {
+        if (data.token) {
+          setToken(data.token);
+          return APIkey.getUserInfo(data.token);
+        }
+      })
+      .then((user) => {
+        setCurrentUser(user);
+        setIsLoggedIn(true);
+        setActiveModal("");
+        Navigate("/profile");
+      })
+      .catch(console.error);
+  };
   const handleImageCardClick = (card) => {
     setActiveModal("preview-image");
     setSelectedCard(card);
   };
 
-  const onAddItem = (newItem) => {
-    setClothingItems((prevItems) => [newItem, ...prevItems]);
-    handleActiveModalClose();
+  const handleLogin = ({ email, password }) => {
+    if (!email || !password) {
+      return;
+    }
+    auth
+      .authorize(email, password)
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem("jwt", data.token);
+          return api.getUserInfo(data.token);
+        }
+      })
+      .then((user) => {
+        setCurrentUser(user);
+        setIsLoggedIn(true);
+        setActiveModal("");
+        Navigate("/profile");
+      })
+      .catch(console.error);
+  };
+
+  const handleAddItem = (newItem) => {
+    const token = localStorage.getItem("jwt");
+
+    addItem(newItem, token)
+      .then((newItem) => {
+        setClothingItems((prevItems) => [newItem, ...prevItems]);
+        handleActiveModalClose();
+      })
+      .catch(console.error);
   };
   const handleAddClothesClick = () => {
     setActiveModal("add-garment");
@@ -62,7 +136,9 @@ function App() {
   };
 
   const handleDeleteCard = (card) => {
-    deleteItem(card._id)
+    const token = localStorage.getItem("jwt");
+
+    deleteItem(card._id, token)
       .then(() => {
         setClothingItems((prevItems) =>
           prevItems.filter((item) => item._id !== card._id)
@@ -104,21 +180,31 @@ function App() {
   useEffect(() => {
     getItems()
       .then((data) => {
+        const itemsWithIds = data.map((item) => {
+          if (!item._id) {
+            console.error("Item is missing _id:", item);
+          }
+          return item;
+        });
         setClothingItems(data);
-        console.log(data);
+        console.log(itemsWithIds);
       })
       .catch(console.error);
   }, []);
 
   return (
     <div className="page">
-      <CurrentUserContext.Provider value={{ currentUser, isLoggedIn }}>
+      <CurrentUserProvider>
         <CurrentTemperatureUnitContext.Provider
           value={{ currentTemperatureUnit, handleToggleSwitchChange }}
         >
           <div className="page__content">
             <BrowserRouter>
               <Header
+                userName={currentUser?.name}
+                userAvatar={currentUser?.avatar}
+                isAuthorized={isLoggedIn}
+                handleProfileClick={() => Navigate("/profile")}
                 handleAddClothesClick={handleAddClothesClick}
                 weatherData={weatherData}
                 handleOpenRegisterModal={handleOpenRegisterModal}
@@ -150,11 +236,15 @@ function App() {
                 <Route
                   path="/profile"
                   element={
-                    <Profile
-                      handleAddClothesClick={handleAddClothesClick}
-                      handleImageCardClick={handleImageCardClick}
-                      clothingItems={clothingItems}
-                    />
+                    <ProtectedRoute>
+                      <Profile
+                        userName={currentUser?.name}
+                        userAvatar={currentUser?.avatar}
+                        handleAddClothesClick={handleAddClothesClick}
+                        handleImageCardClick={handleImageCardClick}
+                        clothingItems={clothingItems}
+                      />
+                    </ProtectedRoute>
                   }
                 />
               </Routes>
@@ -177,7 +267,7 @@ function App() {
           <AddItemModal
             isOpen={activeModal === "add-garment"}
             handleActiveModalClose={handleActiveModalClose}
-            onAddItem={onAddItem}
+            handleAddItem={handleAddItem}
           />
           <ItemModal
             isOpen={activeModal === "preview-image"}
@@ -195,7 +285,7 @@ function App() {
 
           <Footer />
         </CurrentTemperatureUnitContext.Provider>
-      </CurrentUserContext.Provider>
+      </CurrentUserProvider>
     </div>
   );
 }

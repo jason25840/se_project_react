@@ -82,6 +82,13 @@
     color: #000;
 }
 
+.header__profile-section {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 12px;
+}
+
 .header__user-name {
     margin: 0 12px 0 20px;
     font-family: Cabinet Grotesk;
@@ -90,9 +97,16 @@
     line-height: 24.8px;
     text-align: left;
     color: #000;
-    text-decoration: none;
 }
 
 .header__profile-link {
     text-decoration: none;
 }
+
+.header__avatar {
+    width: 56px;
+    height: 56px;
+    border: 1px;
+    border-radius: 50%;
+    border-color: #000;
+    }

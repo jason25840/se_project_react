@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
-import "./DeleteConfirmationModal.css";
-import closeIcon from "../../assets/close.svg";
+import "../blocks/DeleteConfirmationModal.css";
+import closeIcon from "../assets/close.svg";
 
 function DeleteConfirmationModal({
   isOpen,

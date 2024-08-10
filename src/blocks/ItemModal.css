@@ -50,7 +50,7 @@
     margin: 12px 0 0 32px;
 }
 
-.delete-card__button {
+.delete-card__button_visible {
     position: absolute;
     bottom: 68px;
     right: 32px;
@@ -63,5 +63,9 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
+}
+
+.delete-card__button_hidden {
+    display: none;
 }
 

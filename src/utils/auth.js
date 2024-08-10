@@ -30,10 +30,25 @@ const checkToken = (token) => {
   }).then((res) => checkResponse(res));
 };
 
+const getUserInfo = (token) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  })
+    .then((res) => checkResponse(res))
+    .then((data) => {
+      return data;
+    });
+};
+
 const auth = {
   register,
   authorize,
   checkToken,
+  getUserInfo,
 };
 
 export default auth;

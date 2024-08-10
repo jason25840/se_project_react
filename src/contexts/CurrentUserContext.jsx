@@ -1,14 +1,14 @@
 import { createContext, useState } from "react";
 
-const CurrentUserContext = createContext();
+export const CurrentUserContext = createContext();
 
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
-  const isLoggedIn = !!currentUser;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <CurrentUserContext.Provider
-      value={{ currentUser, setCurrentUser, isLoggedIn }}
+      value={{ currentUser, setCurrentUser, isLoggedIn, setIsLoggedIn }}
     >
       {children}
     </CurrentUserContext.Provider>
