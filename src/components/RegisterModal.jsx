@@ -37,6 +37,7 @@ const RegisterModal = ({
       <label className="modal__label">
         Email
         <input
+          name="email"
           className="input"
           type="email"
           id="register-email"
@@ -52,6 +53,7 @@ const RegisterModal = ({
       <label className="modal__label">
         Password
         <input
+          name="password"
           className="input"
           type="password"
           id="register-password"
@@ -67,6 +69,7 @@ const RegisterModal = ({
       <label className="modal__label">
         Name
         <input
+          name="name"
           className="input"
           type="text"
           id="register-name"
@@ -80,12 +83,13 @@ const RegisterModal = ({
       <label className="modal__label">
         Avatar URL
         <input
+          name="avatar"
           className="input"
           type="text"
           id="register-avatar"
           placeholder="Avatar URL"
           value={data.avatar}
-          onChange={(e) => setAvatar(e.target.value)}
+          onChange={onChange}
           required
         />
         <span className="modal__error"></span>

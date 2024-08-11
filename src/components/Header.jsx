@@ -4,8 +4,14 @@ import logo from "../assets/logo.svg";
 import ToggleSwitch from "./ToggleSwitch";
 import { Link } from "react-router-dom";
 import CurrentUserContext from "../contexts/CurrentUserContext";
-function Header({ handleAddClothesClick, weatherData }) {
-  const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
+function Header({
+  handleAddClothesClick,
+  weatherData,
+  isLoggedIn,
+  handleOpenLoginModal,
+  handleOpenRegisterModal,
+}) {
+  const currentUser = useContext(CurrentUserContext);
 
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
@@ -55,12 +61,20 @@ function Header({ handleAddClothesClick, weatherData }) {
           </>
         ) : (
           <>
-            <Link to="/signup" className="header__signup-btn">
+            <button
+              type="button"
+              onClick={handleOpenRegisterModal}
+              className="header__signup-btn"
+            >
               Signup
-            </Link>
-            <Link to="/login" className="header__login-btn">
+            </button>
+            <button
+              type="button"
+              onClick={handleOpenLoginModal}
+              className="header__login-btn"
+            >
               Login
-            </Link>
+            </button>
           </>
         )}
       </div>

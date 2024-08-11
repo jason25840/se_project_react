@@ -5,7 +5,7 @@ import "../blocks/ModalWithForm.css";
 const LoginModal = ({
   isOpen,
   handleActiveModalClose,
-  onLogin,
+  handleLogin,
   handleOpenRegisterModal,
 }) => {
   const [data, setData] = useState({
@@ -20,7 +20,7 @@ const LoginModal = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogin(data);
+    handleLogin(data);
     handleActiveModalClose();
   };
 
@@ -35,6 +35,7 @@ const LoginModal = ({
       <label className="modal__label">
         Email
         <input
+          name="email"
           className="modal__input"
           type="email"
           id="email"
@@ -50,6 +51,7 @@ const LoginModal = ({
       <label className="modal__label">
         Password
         <input
+          name="password"
           className="modal__input"
           type="password"
           id="password"

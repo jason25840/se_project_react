@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 
 import "../blocks/App.css";
 import Header from "./Header";
@@ -18,6 +18,7 @@ import {
 } from "../contexts/CurrentUserContext";
 import AddItemModal from "./AddItemModal";
 import { getItems, deleteItem, addItem } from "../utils/api";
+import { setToken, getToken, removeToken } from "../utils/token";
 import auth from "../utils/auth";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import ProtectedRoute from "./ProtectedRoute";
@@ -37,6 +38,8 @@ function App() {
 
   const { currentUser, setCurrentUser, isLoggedIn, setIsLoggedIn } =
     useContext(CurrentUserContext);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
@@ -75,14 +78,14 @@ function App() {
       .then((data) => {
         if (data.token) {
           setToken(data.token);
-          return APIkey.getUserInfo(data.token);
+          return auth.getUserInfo(data.token);
         }
       })
       .then((user) => {
         setCurrentUser(user);
         setIsLoggedIn(true);
         setActiveModal("");
-        Navigate("/profile");
+        navigate("/profile");
       })
       .catch(console.error);
   };
@@ -100,14 +103,14 @@ function App() {
       .then((data) => {
         if (data.token) {
           localStorage.setItem("jwt", data.token);
-          return api.getUserInfo(data.token);
+          return auth.getUserInfo(data.token);
         }
       })
       .then((user) => {
         setCurrentUser(user);
         setIsLoggedIn(true);
         setActiveModal("");
-        Navigate("/profile");
+        navigate("/profile");
       })
       .catch(console.error);
   };
@@ -199,56 +202,56 @@ function App() {
           value={{ currentTemperatureUnit, handleToggleSwitchChange }}
         >
           <div className="page__content">
-            <BrowserRouter>
-              <Header
-                userName={currentUser?.name}
-                userAvatar={currentUser?.avatar}
-                isAuthorized={isLoggedIn}
-                handleProfileClick={() => Navigate("/profile")}
-                handleAddClothesClick={handleAddClothesClick}
-                weatherData={weatherData}
-                handleOpenRegisterModal={handleOpenRegisterModal}
-                handleOpenLoginModal={handleOpenLoginModal}
-              />
+            {/* <BrowserRouter> */}
+            <Header
+              userName={currentUser?.name}
+              userAvatar={currentUser?.avatar}
+              isAuthorized={isLoggedIn}
+              handleProfileClick={() => Navigate("/profile")}
+              handleAddClothesClick={handleAddClothesClick}
+              weatherData={weatherData}
+              handleOpenRegisterModal={handleOpenRegisterModal}
+              handleOpenLoginModal={handleOpenLoginModal}
+            />
 
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <Main
-                      weatherData={weatherData}
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Main
+                    weatherData={weatherData}
+                    handleImageCardClick={handleImageCardClick}
+                    clothingItems={clothingItems}
+                  />
+                }
+              />
+              <Route
+                path="/signup"
+                element={
+                  <RegisterModal
+                    isOpen={activeModal === "register"}
+                    handleActiveModalClose={handleActiveModalClose}
+                    handleRegistration={handleRegistration}
+                    handleOpenLoginModal={handleOpenLoginModal}
+                  />
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile
+                      userName={currentUser?.name}
+                      userAvatar={currentUser?.avatar}
+                      handleAddClothesClick={handleAddClothesClick}
                       handleImageCardClick={handleImageCardClick}
                       clothingItems={clothingItems}
                     />
-                  }
-                />
-                <Route
-                  path="/signup"
-                  element={
-                    <RegisterModal
-                      isOpen={activeModal === "register"}
-                      handleActiveModalClose={handleActiveModalClose}
-                      handleRegistration={handleRegistration}
-                      handleOpenLoginModal={handleOpenLoginModal}
-                    />
-                  }
-                />
-                <Route
-                  path="/profile"
-                  element={
-                    <ProtectedRoute>
-                      <Profile
-                        userName={currentUser?.name}
-                        userAvatar={currentUser?.avatar}
-                        handleAddClothesClick={handleAddClothesClick}
-                        handleImageCardClick={handleImageCardClick}
-                        clothingItems={clothingItems}
-                      />
-                    </ProtectedRoute>
-                  }
-                />
-              </Routes>
-            </BrowserRouter>
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+            {/* </BrowserRouter> */}
           </div>
 
           <RegisterModal

@@ -18,7 +18,7 @@ function ItemModal({
       handleActiveModalClose();
     }
   };
-  const isOwn = card.owner === currentUser._id;
+  const isOwn = card.owner === currentUser?._id;
 
   const itemDeleteButtonClassName = `item__delete-card__button ${
     isOwn
