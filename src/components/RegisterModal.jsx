@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ModalWithForm from "./ModalWithForm";
+
 import "../blocks/ModalWithForm.css";
 
 const RegisterModal = ({
@@ -28,7 +29,6 @@ const RegisterModal = ({
 
   return (
     <ModalWithForm
-      buttonText="Sign up"
       title="Sign up"
       isOpen={isOpen}
       handleActiveModalClose={handleActiveModalClose}
@@ -94,12 +94,9 @@ const RegisterModal = ({
         />
         <span className="modal__error"></span>
       </label>
-      <div className="modal__Submit-btn-container">
-        <button
-          className="modal__Submit-btn"
-          type="submit"
-          onClick={handleSubmit}
-        >
+
+      <div className="modal__submit-btn-container">
+        <button type="submit" className="modal__submit-btn">
           Next
         </button>
         <button

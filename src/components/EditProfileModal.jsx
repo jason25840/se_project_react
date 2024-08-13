@@ -11,8 +11,8 @@ const EditProfileModal = ({
   const { currentUser } = useContext(CurrentUserContext);
 
   const [profileData, setProfileData] = useState({
-    name: currentUser.name || "",
-    avatar: currentUser.avatar || "",
+    name: "",
+    avatar: "",
   });
 
   useEffect(() => {
@@ -31,13 +31,14 @@ const EditProfileModal = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("submit clicked");
     handleEditProfile(profileData);
     handleActiveModalClose();
   };
 
   return (
     <ModalWithForm
-      buttonText="Save"
+      buttonText="Save changes"
       title="Edit profile"
       isOpen={isOpen}
       handleActiveModalClose={handleActiveModalClose}
@@ -71,9 +72,6 @@ const EditProfileModal = ({
         />
         <span className="modal__input-error"></span>
       </label>
-      <button type="submit" className="profile__submit-btn">
-        Save changes
-      </button>
     </ModalWithForm>
   );
 };

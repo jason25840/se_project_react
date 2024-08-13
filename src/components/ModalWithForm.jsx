@@ -9,7 +9,6 @@ function ModalWithForm({
   handleActiveModalClose,
   onSubmit,
   title,
-  buttonText,
 }) {
   const modalRef = useRef();
 
@@ -36,9 +35,6 @@ function ModalWithForm({
         </button>
         <form className="modal__form" onSubmit={onSubmit}>
           {children}
-          <button type="submit" className="modal__submit-btn">
-            {buttonText}
-          </button>
         </form>
       </div>
     </div>

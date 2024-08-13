@@ -7,11 +7,10 @@ import CurrentUserContext from "../contexts/CurrentUserContext";
 function Header({
   handleAddClothesClick,
   weatherData,
-  isLoggedIn,
   handleOpenLoginModal,
   handleOpenRegisterModal,
 }) {
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
 
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
@@ -19,7 +18,7 @@ function Header({
   });
 
   const getPlaceholderAvatar = (name) => {
-    const initial = name.charset(0).toUpperCase();
+    const initial = name[0].toUpperCase();
     return <div className="header__placeholder-name">{initial}</div>;
   };
 

@@ -3,24 +3,24 @@ import "../blocks/SideBar.css";
 
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
-function SideBar({ handleEditProfile, handleLogout }) {
-  const currentUser = useContext(CurrentUserContext);
+function SideBar({ handleOpenEditProfileModal, handleLogout }) {
+  const { currentUser } = useContext(CurrentUserContext);
 
   return (
     <div className="sidebar">
       <div className="sidebar__avatar-section">
         <img
-          src={currentUser.avatar}
+          src={currentUser?.avatar}
           className="sidebar__avatar"
-          alt="Profle Avatar"
+          alt="Profile Avatar"
         />
-        <p className="sidebar__username">{currentUser.name}</p>
+        <p className="sidebar__username">{currentUser?.name}</p>
       </div>
       <div className="sidebar__options">
         <button
           type="button"
           className="sidebar__edit_profile-btn"
-          onClick={handleEditProfile}
+          onClick={handleOpenEditProfileModal}
         >
           Change profile data
         </button>

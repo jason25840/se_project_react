@@ -7,6 +7,12 @@
     flex-direction: column;
 }
 
+.sidebar__avatar-section {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
 .sidebar__avatar {
     width: 56px;
     height: 56px;

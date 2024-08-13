@@ -44,11 +44,23 @@ const getUserInfo = (token) => {
     });
 };
 
+const editUserInfo = (name, avatar, token) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ name, avatar }),
+  }).then((res) => checkResponse(res));
+};
+
 const auth = {
   register,
   authorize,
   checkToken,
   getUserInfo,
+  editUserInfo,
 };
 
 export default auth;

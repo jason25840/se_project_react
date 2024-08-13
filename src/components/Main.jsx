@@ -4,11 +4,16 @@ import ItemCard from "./ItemCard";
 import { useContext } from "react";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
 
-function Main({ weatherData, handleImageCardClick, clothingItems }) {
+function Main({
+  weatherData,
+  handleImageCardClick,
+  clothingItems,
+  handleCardLike,
+  currentUser,
+}) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
   return (
-    //<BrowserRouter>
     <main>
       <WeatherCard weatherData={weatherData} />
       <section className="cards">
@@ -28,13 +33,14 @@ function Main({ weatherData, handleImageCardClick, clothingItems }) {
                   key={item._id}
                   item={item}
                   onImageCardClick={handleImageCardClick}
+                  handleCardLike={handleCardLike}
+                  currentUser={currentUser}
                 />
               );
             })}
         </ul>
       </section>
     </main>
-    //</BrowserRouter>
   );
 }
 

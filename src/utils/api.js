@@ -33,3 +33,23 @@ export function addItem(item) {
     body: JSON.stringify(item),
   });
 }
+
+export function addCardLike(id, token) {
+  return request(`${baseUrl}/items/${id}/likes`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+export function removeCardLike(id, token) {
+  return request(`${baseUrl}/items/${id}/likes`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ModalWithForm from "./ModalWithForm";
+
 import "../blocks/ModalWithForm.css";
 
 const LoginModal = ({
@@ -64,7 +65,7 @@ const LoginModal = ({
         />
         <span className="modal__error"></span>
       </label>
-      <div className="modal__Submit-btn-container">
+      <div className="modal__submit-btn-container">
         <button type="submit" className="modal__submit-btn">
           Log in
         </button>
