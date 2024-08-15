@@ -6,11 +6,9 @@ import "./index.css";
 import { CurrentUserProvider } from "./contexts/CurrentUserContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <CurrentUserProvider>
-        <App />
-      </CurrentUserProvider>
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <CurrentUserProvider>
+      <App />
+    </CurrentUserProvider>
+  </BrowserRouter>
 );

@@ -9,8 +9,10 @@ export function request(url, options = {}, token = null) {
   };
 
   if (token) {
+    console.log("token:", token);
     headers.authorization = `Bearer ${token}`;
   }
+
   return fetch(url, {
     ...options,
     headers,
@@ -28,10 +30,15 @@ export function deleteItem(id) {
 }
 
 export function addItem(item) {
-  return request(`${baseUrl}/items`, {
-    method: "POST",
-    body: JSON.stringify(item),
-  });
+  const token = localStorage.getItem("jwt");
+  return request(
+    `${baseUrl}/items`,
+    {
+      method: "POST",
+      body: JSON.stringify(item),
+    },
+    token
+  );
 }
 
 export function addCardLike(id, token) {

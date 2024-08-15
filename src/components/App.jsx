@@ -15,7 +15,7 @@ import Footer from "./Footer";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import AddItemModal from "./AddItemModal";
-import { getItems, deleteItem, addItem } from "../utils/api";
+import { getItems, deleteItem, addItem, addCardLike } from "../utils/api";
 import { setToken } from "../utils/token";
 import auth from "../utils/auth";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
@@ -130,14 +130,13 @@ function App() {
     const token = localStorage.getItem("jwt");
 
     if (!isLiked) {
-      api
-        .addCardLike(_id, token)
-        .then((newCard) => {
-          setClothingItems((prevItems) =>
-            prevItems.map((item) => (item._id === _id ? newCard : item))
-          );
-        })
-        .catch(console.error);
+      return addCardLike(_id, token)
+          .then((newCard) => {
+            setClothingItems((prevItems) =>
+              prevItems.map((item) => (item._id === _id ? newCard : item))
+            );
+          })
+          .catch(console.error);
     } else {
       api
         .deleteCardLike(_id, token)
@@ -151,15 +150,13 @@ function App() {
   };
 
   const handleAddItem = (newItem) => {
-    const token = localStorage.getItem("jwt");
-
-    addItem(newItem, token)
-      .then((newItem) => {
-        setClothingItems((prevItems) => [newItem, ...prevItems]);
-        handleActiveModalClose();
-      })
-      .catch(console.error);
+    console.log(newItem);
+    return addItem(newItem).then((newItem) => {
+      setClothingItems((prevItems) => [newItem, ...prevItems]);
+      handleActiveModalClose();
+    });
   };
+
   const handleAddClothesClick = () => {
     setActiveModal("add-garment");
   };

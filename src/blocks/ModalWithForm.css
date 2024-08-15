@@ -130,10 +130,9 @@ input[type="radio"]:checked + .modal__radio {
   }
 
   .modal__submit-btn-container {
-    max-width: 164px;
+    width: 164px;
     margin-top: 24px;
     display: flex;
-    width: 137px;
     height: 36px;
     align-items: center;
     justify-content: center;
@@ -141,7 +140,7 @@ input[type="radio"]:checked + .modal__radio {
 
 .modal__submit-btn {
     margin-bottom: 0;
-    min-width: 65px;
+    width: fit-content;
     height: 36px;
     font-family: Cabinet Grotesk;
     font-size: 16px;

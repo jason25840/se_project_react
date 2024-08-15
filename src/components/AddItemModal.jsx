@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ModalWithForm from "./ModalWithForm";
 import { addItem } from "../utils/api";
 
-const AddItemModal = ({ onAddItem, handleActiveModalClose, isOpen }) => {
+const AddItemModal = ({ handleAddItem, handleActiveModalClose, isOpen }) => {
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [weather, setWeather] = useState("");
@@ -14,15 +14,15 @@ const AddItemModal = ({ onAddItem, handleActiveModalClose, isOpen }) => {
       imageUrl: imageUrl,
       weather: weather,
     };
-    addItem(newItem)
-      .then((item) => {
-        onAddItem(item);
+
+    handleAddItem(newItem)
+      .then(() => {
         setName("");
         setImageUrl("");
         setWeather("");
         handleActiveModalClose();
       })
-      .catch((err) => console.log(err));
+      .catch(console.error);
   };
 
   return (
@@ -97,6 +97,7 @@ const AddItemModal = ({ onAddItem, handleActiveModalClose, isOpen }) => {
           Cold
         </label>
       </fieldset>
+      <button className="modal__submit-btn">Add garment</button>
     </ModalWithForm>
   );
 };

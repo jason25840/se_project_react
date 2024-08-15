@@ -32,3 +32,18 @@
     height: 100%;
     object-fit: cover;
 }
+
+.card__like-button_active {
+    background: transparent url("../assets/likes/solidHeart.png") no-repeat;
+}
+
+.card__like-button {
+    background: transparent url("../assets/likes/hollowHeart.png") no-repeat;
+    transition: opacity 0.3s linear;
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: 21px;
+    height: 18px;
+    cursor: pointer;
+}

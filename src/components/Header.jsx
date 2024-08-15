@@ -18,8 +18,8 @@ function Header({
   });
 
   const getPlaceholderAvatar = (name) => {
-    const initial = name[0].toUpperCase();
-    return <div className="header__placeholder-name">{initial}</div>;
+    if (!name) return "";
+    return name.charAt(0).toUpperCase();
   };
 
   return (
@@ -54,7 +54,9 @@ function Header({
                   className="header__avatar"
                 />
               ) : (
-                getPlaceholderAvatar(currentUser.name)
+                <p className="header__placeholder-avatar">
+                  {getPlaceholderAvatar(currentUser.name)}
+                </p>
               )}
             </Link>
           </>

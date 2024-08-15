@@ -72,6 +72,7 @@ const EditProfileModal = ({
         />
         <span className="modal__input-error"></span>
       </label>
+      <button className="modal__submit-btn">Save changes</button>
     </ModalWithForm>
   );
 };
