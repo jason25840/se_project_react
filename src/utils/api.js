@@ -43,7 +43,7 @@ export function addItem(item) {
 
 export function addCardLike(id, token) {
   return request(`${baseUrl}/items/${id}/likes`, {
-    method: "POST",
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,

@@ -10,6 +10,7 @@ function Profile({
   handleImageCardClick,
   clothingItems,
   handleOpenEditProfileModal,
+  onLikeClick,
 }) {
   const { setIsLoggedIn } = useContext(CurrentUserContext);
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ function Profile({
           clothingItems={clothingItems}
           handleImageCardClick={handleImageCardClick}
           handleAddClothesClick={handleAddClothesClick}
+          onLikeClick={onLikeClick}
         />
       </section>
     </div>

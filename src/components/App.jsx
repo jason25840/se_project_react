@@ -131,12 +131,12 @@ function App() {
 
     if (!isLiked) {
       return addCardLike(_id, token)
-          .then((newCard) => {
-            setClothingItems((prevItems) =>
-              prevItems.map((item) => (item._id === _id ? newCard : item))
-            );
-          })
-          .catch(console.error);
+        .then((newCard) => {
+          setClothingItems((prevItems) =>
+            prevItems.map((item) => (item._id === _id ? newCard : item))
+          );
+        })
+        .catch(console.error);
     } else {
       api
         .deleteCardLike(_id, token)
@@ -252,7 +252,7 @@ function App() {
                   weatherData={weatherData}
                   handleImageCardClick={handleImageCardClick}
                   clothingItems={clothingItems}
-                  handleCardLike={handleCardLike}
+                  onLikeClick={handleCardLike}
                 />
               }
             />
@@ -278,6 +278,7 @@ function App() {
                     handleImageCardClick={handleImageCardClick}
                     clothingItems={clothingItems}
                     handleOpenEditProfileModal={handleOpenEditProfileModal}
+                    onLikeClick={handleCardLike}
                   />
                 </ProtectedRoute>
               }

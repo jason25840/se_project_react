@@ -3,6 +3,7 @@ import "../blocks/ClothesSection.css";
 function ClothesSection({
   handleAddClothesClick,
   handleImageCardClick,
+  onLikeClick,
   clothingItems = [],
 }) {
   return (
@@ -23,6 +24,7 @@ function ClothesSection({
               key={item._id}
               item={item}
               onImageCardClick={handleImageCardClick}
+              onLikeClick={onLikeClick}
             />
           );
         })}
