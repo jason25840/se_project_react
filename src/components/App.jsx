@@ -15,7 +15,13 @@ import Footer from "./Footer";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import AddItemModal from "./AddItemModal";
-import { getItems, deleteItem, addItem, addCardLike } from "../utils/api";
+import {
+  getItems,
+  deleteItem,
+  addItem,
+  addCardLike,
+  removeCardLike,
+} from "../utils/api";
 import { setToken } from "../utils/token";
 import auth from "../utils/auth";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
@@ -126,20 +132,17 @@ function App() {
       .catch(console.error);
   };
 
-  const handleCardLike = ({ _id, isLiked }) => {
+  const handleCardLike = ({ _id }, isLiked) => {
     const token = localStorage.getItem("jwt");
 
     if (!isLiked) {
-      return addCardLike(_id, token)
-        .then((newCard) => {
-          setClothingItems((prevItems) =>
-            prevItems.map((item) => (item._id === _id ? newCard : item))
-          );
-        })
-        .catch(console.error);
+      return addCardLike(_id, token).then((newCard) => {
+        setClothingItems((prevItems) =>
+          prevItems.map((item) => (item._id === _id ? newCard : item))
+        );
+      });
     } else {
-      api
-        .deleteCardLike(_id, token)
+      return removeCardLike(_id, token)
         .then((newCard) => {
           setClothingItems((prevItems) =>
             prevItems.map((item) => (item._id === _id ? newCard : item))

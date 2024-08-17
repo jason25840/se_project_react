@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ModalWithForm from "./ModalWithForm";
 
 import "../blocks/ModalWithForm.css";
@@ -14,15 +14,55 @@ const LoginModal = ({
     password: "",
   });
 
+  const [isValid, setIsValid] = useState(false);
+
+  // Define error messages for each input field
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
+
+  // Function to validate input fields
+  const validateForm = (data) => {
+    const newErrors = { email: "", password: "" };
+
+    if (!data.email) {
+      newErrors.email = "Email is required";
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(data.email)) {
+      newErrors.email = "Invalid email address";
+    }
+
+    if (!data.password) {
+      newErrors.password = "Password is required";
+    } else if (data.password.length < 2 || data.password.length > 16) {
+      newErrors.password = "Password must be between 2 and 16 characters long";
+    }
+
+    setErrors(newErrors);
+
+    setIsValid(Object.values(newErrors).every((error) => error === ""));
+  };
+
+  // Function to handle input changes
   const onChange = (e) => {
     const { name, value } = e.target;
     setData((prev) => ({ ...prev, [name]: value }));
+
+    validateForm({ ...data, [name]: value });
   };
 
+  useEffect(() => {
+    validateForm(data);
+  }, [data]);
+
+  // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleLogin(data);
-    handleActiveModalClose();
+    if (isValid) {
+      // Form is valid, proceed with submission
+      handleLogin(data);
+      handleActiveModalClose();
+    }
   };
 
   return (
@@ -37,7 +77,9 @@ const LoginModal = ({
         Email
         <input
           name="email"
-          className="modal__input"
+          className={`modal__input ${
+            errors.email ? "modal__input_invalid" : ""
+          }`}
           type="email"
           id="email"
           placeholder="Email"
@@ -47,13 +89,15 @@ const LoginModal = ({
           maxLength="40"
           required
         />
-        <span className="modal__error"></span>
+        <span className="modal__error">{errors.email}</span>
       </label>
       <label className="modal__label">
         Password
         <input
           name="password"
-          className="modal__input"
+          className={`modal__input ${
+            errors.password ? "modal__input_invalid" : ""
+          }`}
           type="password"
           id="password"
           placeholder="Password"
@@ -63,10 +107,17 @@ const LoginModal = ({
           maxLength="16"
           required
         />
-        <span className="modal__error"></span>
+        <span className="modal__error">{errors.password}</span>
       </label>
       <div className="modal__submit-btn-container">
-        <button type="submit" className="modal__submit-btn">
+        <button
+          type="submit"
+          className={`modal__submit-btn ${
+            Object.values(errors).every((error) => error === "")
+              ? "modal__submit-btn_active"
+              : ""
+          }`}
+        >
           Log in
         </button>
         <button

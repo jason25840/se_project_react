@@ -113,11 +113,12 @@
     border-color: #000;
     }
 
-/*.header__placeholder-avatar {
+.header__placeholder-avatar {
     width: 56px;
     height: 56px;
     border: 1px;
     background-color: #000;
+    color: #fff;
     border-radius: 50%;
-}*/
+}
 

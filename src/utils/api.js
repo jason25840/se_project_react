@@ -23,9 +23,13 @@ export function getItems() {
   return request(`${baseUrl}/items`);
 }
 
-export function deleteItem(id) {
+export function deleteItem(id, token) {
   return request(`${baseUrl}/items/${id}`, {
     method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
   });
 }
 

@@ -4,23 +4,32 @@ import { useContext, useState, useEffect } from "react";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function ItemCard({ item, onImageCardClick, onLikeClick }) {
-  const { currentUser } = useContext(CurrentUserContext);
+  const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
 
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
-    setIsLiked(item.likes.some((like) => like._id === currentUser._id));
-  }, [item]);
+    setIsLiked(
+      item.likes.some((like) => {
+        return like === currentUser?._id;
+      })
+    );
+  }, [isLoggedIn]);
 
   const handleCardClick = () => {
-    onImageCardClick(item);
+    onImageCardClick(item, isLiked);
   };
 
   function handleCardLikeClick(e) {
     e.preventDefault();
     e.stopPropagation();
-    setIsLiked(!isLiked);
-    onLikeClick(item);
+    onLikeClick(item, isLiked)
+      .then(() => {
+        setIsLiked(!isLiked);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   console.log("isLiked", isLiked);

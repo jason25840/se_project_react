@@ -94,6 +94,10 @@
     text-align: left;
 }
 
+.modal__input_invalid {
+    color: red;
+}
+
 .modal__legend {
     font-family: Cabinet Grotesk;
     font-size: 16px;
@@ -153,6 +157,16 @@ input[type="radio"]:checked + .modal__radio {
     background-color: rgba(0, 0, 0, 0.3);
     color: #fff;
     border: none;
+    cursor: default;
+}
+
+.modal__submit-btn_active {
+    background-color: black;
+    cursor: pointer;
+}
+
+.modal__submit-btn_active:hover {
+    background-color: rgba(0, 0, 0, 0.5);
     cursor: pointer;
 }
 
