@@ -126,7 +126,7 @@ function App() {
     auth
       .editUserInfo(name, avatar, token)
       .then((user) => {
-        setCurrentUser(user);
+        setCurrentUser(user.data);
         handleActiveModalClose();
       })
       .catch(console.error);

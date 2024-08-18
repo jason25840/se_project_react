@@ -16,34 +16,33 @@ const LoginModal = ({
 
   const [isValid, setIsValid] = useState(false);
 
-  // Define error messages for each input field
   const [errors, setErrors] = useState({
-    email: "",
-    password: "",
+    email: false,
+    password: false,
   });
 
-  // Function to validate input fields
   const validateForm = (data) => {
-    const newErrors = { email: "", password: "" };
+    const newErrors = { email: false, password: false };
 
-    if (!data.email) {
-      newErrors.email = "Email is required";
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(data.email)) {
-      newErrors.email = "Invalid email address";
+    if (
+      data.email &&
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(data.email)
+    ) {
+      newErrors.email = true;
     }
 
-    if (!data.password) {
-      newErrors.password = "Password is required";
-    } else if (data.password.length < 2 || data.password.length > 16) {
-      newErrors.password = "Password must be between 2 and 16 characters long";
+    if (
+      (data.password && data.password.length < 2) ||
+      data.password.length > 16
+    ) {
+      newErrors.password = true;
     }
 
     setErrors(newErrors);
 
-    setIsValid(Object.values(newErrors).every((error) => error === ""));
+    setIsValid(Object.values(newErrors).every((error) => error === false));
   };
 
-  // Function to handle input changes
   const onChange = (e) => {
     const { name, value } = e.target;
     setData((prev) => ({ ...prev, [name]: value }));
@@ -55,11 +54,9 @@ const LoginModal = ({
     validateForm(data);
   }, [data]);
 
-  // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isValid) {
-      // Form is valid, proceed with submission
       handleLogin(data);
       handleActiveModalClose();
     }
@@ -73,8 +70,10 @@ const LoginModal = ({
       handleActiveModalClose={handleActiveModalClose}
       onSubmit={handleSubmit}
     >
-      <label className="modal__label">
-        Email
+      <label
+        className={`modal__label ${errors.email ? "modal__label_invalid" : ""}`}
+      >
+        {errors.email ? "Enter a valid email" : "Email"}
         <input
           name="email"
           className={`modal__input ${
@@ -91,8 +90,12 @@ const LoginModal = ({
         />
         <span className="modal__error">{errors.email}</span>
       </label>
-      <label className="modal__label">
-        Password
+      <label
+        className={`modal__label ${
+          errors.password ? "modal__label_invalid" : ""
+        }`}
+      >
+        {errors.password ? "Enter a valid password" : "Password"}
         <input
           name="password"
           className={`modal__input ${
@@ -113,10 +116,9 @@ const LoginModal = ({
         <button
           type="submit"
           className={`modal__submit-btn ${
-            Object.values(errors).every((error) => error === "")
-              ? "modal__submit-btn_active"
-              : ""
+            isValid ? "modal__submit-btn_active" : ""
           }`}
+          disabled={!isValid}
         >
           Log in
         </button>

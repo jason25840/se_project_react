@@ -80,6 +80,10 @@
     gap: 8px;
 }
 
+.modal__label_invalid {
+    color: red;
+}
+
 .modal__input {
     border-top: none;
     border-left: none;
@@ -107,30 +111,34 @@
     color: #000;
 }
 
-
 .modal__radio-buttons {
     border: none;
     padding: 0;
     margin: 0;
-    display: flex;
-    flex-direction: column;
     gap: 8px;
+}
+
+.modal__radio-group {
+    display: flex;
+}
+
+.modal__radio {
+     margin: 0;
+}
+
+.modal__radio-label {
+    margin-left: 8px;
     font-family: Cabinet Grotesk;
     font-size: 16px;
     font-weight: 700;
     line-height: 20px;
     text-align: left;
-    border: #00000080;
-    color:  #00000080;
-    accent-color: #000;
-}
+    color:  #00000050;
+    accent-color: #000000;
+} 
 
-.modal__radio {
-    color:  #00000080;
-}
-
-input[type="radio"]:checked + .modal__radio {
-    color: #000; 
+.modal__radio:checked + .modal__radio-label {
+    color: #000000;
   }
 
   .modal__submit-btn-container {
