@@ -24,13 +24,13 @@ position: absolute;
 }
 
 .switch__slider-F {
-   top: 4px;
-   left: 24px;
+   top: 2px;
+   left: 21px;
 } 
 
 .switch__slider-C {
-    top: 4px;
-    left: 4px;
+    top: 2px;
+    left: 1px;
 }
 
 .switch__active {
@@ -42,15 +42,15 @@ position: absolute;
 }
 
 .switch__temp-C {
-    top: -4px;
-    left: 13px;
+    top: -6px;
+    left: 10px;
     position: absolute;
     color: #f3f3f3;
 }
 
 .switch__temp-F {
-    top: -4px;
-    left: 35px;
+    top: -6px;
+    left: 33px;
     position: absolute;
     color: #f3f3f3;
 }

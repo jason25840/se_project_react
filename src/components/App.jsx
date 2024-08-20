@@ -37,11 +37,20 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { currentUser, setCurrentUser, isLoggedIn, setIsLoggedIn } =
     useContext(CurrentUserContext);
 
   const navigate = useNavigate();
+
+  function handleSubmit(request) {
+    setIsLoading(true);
+    request()
+      .then(handleActiveModalClose)
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
+  }
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
@@ -76,7 +85,7 @@ function App() {
   };
 
   const handleRegistration = ({ email, name, password, avatar }) => {
-    auth
+    return auth
       .register(email, password, name, avatar)
       .then(() => {
         return auth.authorize(email, password);
@@ -85,15 +94,15 @@ function App() {
         if (data.token) {
           setToken(data.token);
           return auth.getUserInfo(data.token);
+        } else {
+          return Promise.reject("Authorization failed");
         }
       })
       .then((user) => {
         setCurrentUser(user);
         setIsLoggedIn(true);
-        setActiveModal("");
         navigate("/profile");
-      })
-      .catch(console.error);
+      });
   };
   const handleImageCardClick = (card) => {
     setActiveModal("preview-image");
@@ -102,34 +111,30 @@ function App() {
 
   const handleLogin = ({ email, password }) => {
     if (!email || !password) {
-      return;
+      return Promise.reject("Empty email or password");
     }
-    auth
+    return auth
       .authorize(email, password)
       .then((data) => {
         if (data.token) {
           localStorage.setItem("jwt", data.token);
           return auth.getUserInfo(data.token);
+        } else {
+          return Promise.reject("Invalid email or password");
         }
       })
       .then((user) => {
         setCurrentUser(user);
         setIsLoggedIn(true);
-        setActiveModal("");
         navigate("/profile");
-      })
-      .catch(console.error);
+      });
   };
 
   const handleEditProfile = ({ name, avatar }) => {
     const token = localStorage.getItem("jwt");
-    auth
-      .editUserInfo(name, avatar, token)
-      .then((user) => {
-        setCurrentUser(user.data);
-        handleActiveModalClose();
-      })
-      .catch(console.error);
+    return auth.editUserInfo(name, avatar, token).then((user) => {
+      setCurrentUser(user.data);
+    });
   };
 
   const handleCardLike = ({ _id }, isLiked) => {
@@ -142,13 +147,11 @@ function App() {
         );
       });
     } else {
-      return removeCardLike(_id, token)
-        .then((newCard) => {
-          setClothingItems((prevItems) =>
-            prevItems.map((item) => (item._id === _id ? newCard : item))
-          );
-        })
-        .catch(console.error);
+      return removeCardLike(_id, token).then((newCard) => {
+        setClothingItems((prevItems) =>
+          prevItems.map((item) => (item._id === _id ? newCard : item))
+        );
+      });
     }
   };
 
@@ -156,7 +159,6 @@ function App() {
     console.log(newItem);
     return addItem(newItem).then((newItem) => {
       setClothingItems((prevItems) => [newItem, ...prevItems]);
-      handleActiveModalClose();
     });
   };
 
@@ -267,6 +269,7 @@ function App() {
                   handleActiveModalClose={handleActiveModalClose}
                   handleRegistration={handleRegistration}
                   handleOpenLoginModal={handleOpenLoginModal}
+                  handleSubmit={handleSubmit}
                 />
               }
             />
@@ -294,12 +297,14 @@ function App() {
           handleActiveModalClose={handleActiveModalClose}
           handleRegistration={handleRegistration}
           handleOpenLoginModal={handleOpenLoginModal}
+          handleSubmit={handleSubmit}
         />
 
         <EditProfileModal
           isOpen={activeModal === "edit-profile"}
           handleActiveModalClose={handleActiveModalClose}
           handleEditProfile={handleEditProfile}
+          handleSubmit={handleSubmit}
         />
 
         <LoginModal
@@ -307,11 +312,13 @@ function App() {
           handleActiveModalClose={handleActiveModalClose}
           handleLogin={handleLogin}
           handleOpenRegisterModal={handleOpenRegisterModal}
+          handleSubmit={handleSubmit}
         />
         <AddItemModal
           isOpen={activeModal === "add-garment"}
           handleActiveModalClose={handleActiveModalClose}
           handleAddItem={handleAddItem}
+          handleSubmit={handleSubmit}
         />
         <ItemModal
           isOpen={activeModal === "preview-image"}

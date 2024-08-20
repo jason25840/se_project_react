@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import ModalWithForm from "./ModalWithForm";
+import { useFormAndValidation } from "../Hooks/useFormAndValidation";
 
 import "../blocks/ModalWithForm.css";
 
@@ -8,80 +9,23 @@ const RegisterModal = ({
   handleActiveModalClose,
   handleRegistration,
   handleOpenLoginModal,
+  handleSubmit,
+  isLoading,
 }) => {
-  const [data, setData] = useState({
-    email: "",
-    password: "",
-    name: "",
-    avatar: "",
-  });
-
-  const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-    name: "",
-    avatar: "",
-  });
-
-  const [isValid, setIsValid] = useState(false);
-
-
-  const validateForm = (data) => {
-    const newErrors = {
-      email: false,
-      password: false,
-      name: false,
-      avatar: false,
-    };
-
-    if (
-      data.email &&
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(data.email)
-    ) {
-      newErrors.email = true;
-    }
-
-    if (
-      (data.password && data.password.length < 2) ||
-      data.password.length > 16
-    ) {
-      newErrors.password = true;
-    }
-
-    if (data.name && data.name.length < 2) {
-      newErrors.name = true;
-    }
-
-    if (
-      data.avatar &&
-      !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/i.test(
-        data.avatar
-      )
-    ) {
-      newErrors.avatar = true;
-    }
-
-    setErrors(newErrors);
-
-    setIsValid(Object.values(newErrors).every((error) => error === false));
-  };
-
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setData((prev) => ({ ...prev, [name]: value }));
-
-    validateForm({ ...data, [name]: value });
-  };
+  const { values, handleChange, errors, isValid, resetForm, setValues } =
+    useFormAndValidation();
 
   useEffect(() => {
-    validateForm(data);
-  }, [data]);
-
-  const handleSubmit = (e) => {
+    if (isOpen) {
+      resetForm();
+    }
+  }, [isOpen, resetForm]);
+  const handleFormSubmit = (e) => {
     e.preventDefault();
     if (isValid) {
-      handleRegistration(data);
-      handleActiveModalClose();
+      const makeRequest = () => handleRegistration(values);
+
+      handleSubmit(makeRequest);
     }
   };
 
@@ -90,7 +34,7 @@ const RegisterModal = ({
       title="Sign up"
       isOpen={isOpen}
       handleActiveModalClose={handleActiveModalClose}
-      onSubmit={handleSubmit}
+      onSubmit={handleFormSubmit}
     >
       <label
         className={`modal__label ${errors.email ? "modal__label_invalid" : ""}`}
@@ -104,14 +48,14 @@ const RegisterModal = ({
           type="email"
           id="register-email"
           placeholder="Email"
-          value={data.email}
-          onChange={onChange}
+          value={values.email || ""}
+          onChange={handleChange}
           minLength="2"
           maxLength="40"
           required
         />
-        <span className="modal__error">{errors.email}</span>
       </label>
+
       <label
         className={`modal__label ${
           errors.password ? "modal__label_invalid" : ""
@@ -126,13 +70,12 @@ const RegisterModal = ({
           type="password"
           id="register-password"
           placeholder="Password"
-          value={data.password}
-          onChange={onChange}
+          value={values.password || ""}
+          onChange={handleChange}
           minLength="2"
           maxLength="16"
           required
         />
-        <span className="modal__error">{errors.password}</span>
       </label>
       <label
         className={`modal__label ${errors.name ? "modal__label_invalid" : ""}`}
@@ -146,11 +89,10 @@ const RegisterModal = ({
           type="text"
           id="register-name"
           placeholder="Name"
-          value={data.name}
-          onChange={onChange}
+          value={values.name || ""}
+          onChange={handleChange}
           required
         />
-        <span className="modal__error">{errors.name}</span>
       </label>
       <label
         className={`modal__label ${
@@ -163,25 +105,24 @@ const RegisterModal = ({
           className={`modal__input ${
             errors.avatar ? "modal__input_invalid" : ""
           }`}
-          type="text"
+          type="url"
           id="register-avatar"
           placeholder="Avatar URL"
-          value={data.avatar}
-          onChange={onChange}
+          value={values.avatar || ""}
+          onChange={handleChange}
           required
         />
-        <span className="modal__error">{errors.avatar}</span>
       </label>
 
       <div className="modal__submit-btn-container">
         <button
           type="submit"
           className={`modal__submit-btn ${
-            isValid ? "modal__submit-btn_active" : ""
+            isValid && !isLoading ? "modal__submit-btn_active" : ""
           }`}
-          disabled={!isValid}
+          disabled={!isValid || isLoading}
         >
-          Next
+          {isLoading ? "Loading..." : "Next"}
         </button>
         <button
           className="modal__option-btn"

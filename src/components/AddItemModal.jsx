@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import ModalWithForm from "./ModalWithForm";
 
-const AddItemModal = ({ handleAddItem, handleActiveModalClose, isOpen }) => {
+const AddItemModal = ({
+  handleAddItem,
+  handleActiveModalClose,
+  isOpen,
+  handleSubmit,
+  isLoading,
+}) => {
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [weather, setWeather] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
     const newItem = {
       name: name,
@@ -14,14 +20,14 @@ const AddItemModal = ({ handleAddItem, handleActiveModalClose, isOpen }) => {
       weather: weather,
     };
 
-    handleAddItem(newItem)
-      .then(() => {
+    const makeRequest = () =>
+      handleAddItem(newItem).then(() => {
         setName("");
         setImageUrl("");
         setWeather("");
-        handleActiveModalClose();
-      })
-      .catch(console.error);
+      });
+
+    handleSubmit(makeRequest);
   };
 
   return (
@@ -30,7 +36,7 @@ const AddItemModal = ({ handleAddItem, handleActiveModalClose, isOpen }) => {
       title="New Garment"
       isOpen={isOpen}
       handleActiveModalClose={handleActiveModalClose}
-      onSubmit={handleSubmit}
+      onSubmit={handleFormSubmit}
     >
       <label htmlFor="name" className="modal__label">
         Name{" "}
@@ -102,7 +108,9 @@ const AddItemModal = ({ handleAddItem, handleActiveModalClose, isOpen }) => {
           </label>
         </div>
       </fieldset>
-      <button className="modal__submit-btn">Add garment</button>
+      <button type="submit" className="modal__submit-btn">
+        {isLoading ? "Adding..." : "Add garment"}
+      </button>
     </ModalWithForm>
   );
 };

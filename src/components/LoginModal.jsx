@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import ModalWithForm from "./ModalWithForm";
+import { useFormAndValidation } from "../Hooks/useFormAndValidation";
 
 import "../blocks/ModalWithForm.css";
 
@@ -8,67 +9,32 @@ const LoginModal = ({
   handleActiveModalClose,
   handleLogin,
   handleOpenRegisterModal,
+  handleSubmit,
+  isLoading,
 }) => {
-  const [data, setData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const [isValid, setIsValid] = useState(false);
-
-  const [errors, setErrors] = useState({
-    email: false,
-    password: false,
-  });
-
-  const validateForm = (data) => {
-    const newErrors = { email: false, password: false };
-
-    if (
-      data.email &&
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(data.email)
-    ) {
-      newErrors.email = true;
-    }
-
-    if (
-      (data.password && data.password.length < 2) ||
-      data.password.length > 16
-    ) {
-      newErrors.password = true;
-    }
-
-    setErrors(newErrors);
-
-    setIsValid(Object.values(newErrors).every((error) => error === false));
-  };
-
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setData((prev) => ({ ...prev, [name]: value }));
-
-    validateForm({ ...data, [name]: value });
-  };
+  const { values, handleChange, errors, isValid, resetForm, setValues } =
+    useFormAndValidation();
 
   useEffect(() => {
-    validateForm(data);
-  }, [data]);
-
-  const handleSubmit = (e) => {
+    if (isOpen) {
+      resetForm();
+    }
+  }, [isOpen, resetForm]);
+  const handleFormSubmit = (e) => {
     e.preventDefault();
     if (isValid) {
-      handleLogin(data);
-      handleActiveModalClose();
+      const makeRequest = () => handleLogin(values);
+      handleSubmit(makeRequest);
     }
   };
 
   return (
     <ModalWithForm
-      buttonText="Log in"
+      buttonText={isLoading ? "Loading..." : "Log in"}
       title="Log in"
       isOpen={isOpen}
       handleActiveModalClose={handleActiveModalClose}
-      onSubmit={handleSubmit}
+      onSubmit={handleFormSubmit}
     >
       <label
         className={`modal__label ${errors.email ? "modal__label_invalid" : ""}`}
@@ -82,14 +48,14 @@ const LoginModal = ({
           type="email"
           id="email"
           placeholder="Email"
-          value={data.email}
-          onChange={onChange}
+          value={values.email || ""}
+          onChange={handleChange}
           minLength="2"
           maxLength="40"
           required
         />
-        <span className="modal__error">{errors.email}</span>
       </label>
+
       <label
         className={`modal__label ${
           errors.password ? "modal__label_invalid" : ""
@@ -104,23 +70,22 @@ const LoginModal = ({
           type="password"
           id="password"
           placeholder="Password"
-          value={data.password}
-          onChange={onChange}
+          value={values.password || ""}
+          onChange={handleChange}
           minLength="2"
           maxLength="16"
           required
         />
-        <span className="modal__error">{errors.password}</span>
       </label>
       <div className="modal__submit-btn-container">
         <button
           type="submit"
           className={`modal__submit-btn ${
-            isValid ? "modal__submit-btn_active" : ""
+            isValid && !isLoading ? "modal__submit-btn_active" : ""
           }`}
-          disabled={!isValid}
+          disabled={!isValid || isLoading}
         >
-          Log in
+          {isLoading ? "Loading..." : "Log in"}
         </button>
         <button
           type="button"
