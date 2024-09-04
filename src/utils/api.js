@@ -1,6 +1,6 @@
 import { checkResponse } from "./utils";
 
-const baseUrl = "http://localhost:3001";
+const baseUrl = "http://34.74.30.39:3001";
 
 export function request(url, options = {}, token = null) {
   const headers = {
