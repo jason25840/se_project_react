@@ -106,3 +106,8 @@ export const coordinates = {
 
 export const APIkey = "685e0a4492fbd6de829863e94a2f5d57";
 
+export const BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://api.what2where.mindhackers.org"
+    : "http://localhost:3001";
+

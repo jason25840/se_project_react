@@ -1,6 +1,6 @@
 import { checkResponse } from "./utils";
 
-const baseUrl = "http://34.74.30.39:3001";
+import { BASE_URL } from "./constants";
 
 export function request(url, options = {}, token = null) {
   const headers = {
@@ -20,11 +20,11 @@ export function request(url, options = {}, token = null) {
 }
 
 export function getItems() {
-  return request(`${baseUrl}/items`);
+  return request(`${BASE_URL}/items`);
 }
-
+console.log("get items");
 export function deleteItem(id, token) {
-  return request(`${baseUrl}/items/${id}`, {
+  return request(`${BASE_URL}/items/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export function deleteItem(id, token) {
 export function addItem(item) {
   const token = localStorage.getItem("jwt");
   return request(
-    `${baseUrl}/items`,
+    `${BASE_URL}/items`,
     {
       method: "POST",
       body: JSON.stringify(item),
@@ -46,7 +46,7 @@ export function addItem(item) {
 }
 
 export function addCardLike(id, token) {
-  return request(`${baseUrl}/items/${id}/likes`, {
+  return request(`${BASE_URL}/items/${id}/likes`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -56,7 +56,7 @@ export function addCardLike(id, token) {
 }
 
 export function removeCardLike(id, token) {
-  return request(`${baseUrl}/items/${id}/likes`, {
+  return request(`${BASE_URL}/items/${id}/likes`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
