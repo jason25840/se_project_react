@@ -9,7 +9,6 @@ export function request(url, options = {}, token = null) {
   };
 
   if (token) {
-    console.log("token:", token);
     headers.authorization = `Bearer ${token}`;
   }
 
@@ -22,7 +21,7 @@ export function request(url, options = {}, token = null) {
 export function getItems() {
   return request(`${BASE_URL}/items`);
 }
-console.log("get items");
+
 export function deleteItem(id, token) {
   return request(`${BASE_URL}/items/${id}`, {
     method: "DELETE",

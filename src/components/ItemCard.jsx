@@ -32,7 +32,6 @@ function ItemCard({ item, onImageCardClick, onLikeClick }) {
       });
   }
 
-  console.log("isLiked", isLiked);
   return (
     <li className="card">
       <div className="title__container">

@@ -156,7 +156,6 @@ function App() {
   };
 
   const handleAddItem = (newItem) => {
-    console.log(newItem);
     return addItem(newItem).then((newItem) => {
       setClothingItems((prevItems) => [newItem, ...prevItems]);
     });
