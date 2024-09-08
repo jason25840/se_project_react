@@ -3,6 +3,7 @@ import { checkResponse } from "./utils";
 import { BASE_URL } from "./constants";
 
 export function request(url, options = {}, token = null) {
+
   const headers = {
     "Content-Type": "application/json",
     ...options.headers,
